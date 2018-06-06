@@ -1,28 +1,79 @@
-.App {
+.header {
+  height: 30px;
   text-align: center;
+  line-height: 30px;
+  justify-content: center;
+  background-color: #3b9df5
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.sidebar {
+  height: 300px;
+  width: 100vw;
 }
-
-.App-header {
-  background-color: #222;
+.sidebar-container {
+  padding: 10px;
+}
+.sidebar-button-container {
+  display: flex;
+}
+.menu-button {
+  position: absolute;
+  top: 290px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-image: url('images/menu-icon.png');
+  background-size: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  font-size: 0;
+  cursor: pointer;
+}
+#map {
+  height: calc(100vh - 330px);
+  width: 100vw;
+}
+.info-window-img {
+  float: left;
   height: 150px;
-  padding: 20px;
-  color: white;
+}
+.info-window-container {
+  float: left;
+  margin-left: 10px;
+}
+.info-window-container h2 {
+  margin: 5px 0 0;
+}
+.info-window-container p {
+  margin: 0 0 5px;
+}
+.info-window-text-container{
+  margin-bottom: 30px;
+}
+#yelp-logo {
+  width: 64px;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@media screen and (min-width: 600px) {
+  .sidebar {
+    padding: 30px 10px;
+    height: calc(100vh - 90px);
+    width: 30%;
+    float: left;
+    border-right: 1px solid #bbb;
+    position: absolute;
+    background: white;
+  }
+  .sidebar-container {
+    padding: 10px;
+  }
+  .menu-button {
+    top: 10px;
+    right: 30px;
+  }
+  #map {
+    height: calc(100vh - 30px);
+    width: 70%;
+    float: right;
+  }
 }

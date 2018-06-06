@@ -182,8 +182,6 @@ function hide() {
 function show() {
   let bounds = new google.maps.LatLngBounds();
 
-
-
   markers.forEach(marker => {
     marker.setAnimation(google.maps.Animation.DROP);
     marker.setMap(map);
