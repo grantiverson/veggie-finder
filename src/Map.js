@@ -149,7 +149,7 @@ class Map extends Component {
         }
       ],
       priceFilterValue: 'any price',
-      ratingFilterValue: 'any rating'
+      ratingFilterValue: '3'
     }
   }
 
@@ -170,7 +170,7 @@ class Map extends Component {
     // Allows access when CORS is disabled
     const cors = "https://cors-anywhere.herokuapp.com/"
 
-    const urlToFetch = `${cors}https://api.yelp.com/v3/businesses/search?term=vegetarian restaurants&location=orlando&limit=25`
+    const urlToFetch = `${cors}https://api.yelp.com/v3/businesses/search?term=vegetarian restaurants&location=new york&limit=25`
     console.log(urlToFetch);
 
     fetch(urlToFetch, {
@@ -353,7 +353,7 @@ class Map extends Component {
 
     this.hide;
 
-    // let bounds = new window.google.maps.LatLngBounds();
+    let bounds = new window.google.maps.LatLngBounds();
 
     for (let i = 0; i < locations.length; i++) {
       let priceMatch = false;
@@ -362,8 +362,8 @@ class Map extends Component {
       let locationPrice = locations[i].price;
       let locationRating = locations[i].rating;
 
-      (locationPrice === priceFilterValue || priceFilterValue === 'all') ? priceMatch = true : null;
-      (locationRating >= ratingFilterValue || ratingFilterValue === 'all') ? ratingMatch = true : null;
+      (locationPrice === priceFilterValue || priceFilterValue === 'any price') ? priceMatch = true : null;
+      (locationRating >= ratingFilterValue) ? ratingMatch = true : null;
 
       if (priceMatch && ratingMatch) {
         markers[i].setAnimation(window.google.maps.Animation.BOUNCE);
@@ -372,12 +372,12 @@ class Map extends Component {
           markers[i].setAnimation(null);
         }, 1400);
 
-        // bounds.extend(markers[i].position);
+        bounds.extend(markers[i].position);
       } else {
         markers[i].setMap(null);
       }
     }
-    // map.fitBounds(bounds);
+    map.fitBounds(bounds);
   }
 
   render() {
