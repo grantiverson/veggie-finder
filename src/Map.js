@@ -398,6 +398,7 @@ class Map extends Component {
           handleRatingFilter={this.handleRatingFilter}
           handleSearchText={this.handleSearchText}
           handleSearchButton={this.handleSearchButton}
+          locations={this.state.locations}
         />
         <div id="map"></div>
       </div>
