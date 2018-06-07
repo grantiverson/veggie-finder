@@ -340,6 +340,7 @@ class Map extends Component {
         }
 
       }).catch(error => {
+        alert('Sorry, but we seem to have hit a snag :/');
         console.log(error);
       });
   }
