@@ -14,13 +14,14 @@
   background-color: white;
   position: absolute;
   z-index: 1;
+  box-shadow: 1px 1px 5px #ccc;
 }
 #sidebar-button {
   position: absolute;
   top: 110px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
+  right: -30px;
+  width: 40px;
+  height: 20px;
   background-image: url('images/menu-icon.png');
   background-size: 30px;
   background-position: center;
@@ -28,6 +29,9 @@
   border: none;
   font-size: 0;
   cursor: pointer;
+  border: 1px solid #bbb;
+  transform: rotate(90deg);
+  box-shadow: 1px 0 5px #ccc;
 }
 #search-filter-container {
   padding: 30px 10px;
@@ -52,6 +56,7 @@
   background-color: white;
   border-top: 1px solid #bbb;
   text-align: center;
+  box-shadow: -1px -1px 5px #ccc;
 }
 #locations-list-button {
   width: 30px;
@@ -133,13 +138,14 @@
 
 @media screen and (min-width: 600px) {
   #sidebar {
-    width: 450px;
+    width: 475px;
     border-right: 1px solid #bbb;
     border-bottom: none;
   }
   .locations-list-container{
     position: static;
     border-top: none;
+    box-shadow: none;
   }
   #locations-list-button {
     display: none;
@@ -153,6 +159,6 @@
     text-align: left;
   }
   .list-item-text-container{
-    max-width: 260px;
+    max-width: 285px;
   }
 }
