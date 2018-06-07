@@ -149,7 +149,8 @@ class Map extends Component {
         }
       ],
       priceFilterValue: 'any price',
-      ratingFilterValue: '3'
+      ratingFilterValue: '3',
+      searchValue: ''
     }
   }
 
@@ -159,53 +160,6 @@ class Map extends Component {
     document.body.appendChild(googleMap);
 
     window.initMap = this.initMap;
-
-    // Authorization info for Yelp
-    // https://forum.freecodecamp.org/t/authorization-http-header-for-yelp-fusion-api-access-token/140974
-    const access_token = "Opsi88BMRhY9PANt58XH8NSBCbDCLLnHL5VLKDmhaOt4qoruzhDzZcqAdCIAAO59a5UvhRFFAqdR6SSZ65VWNpiSsyyX-sLl3TLQNUg1sqi1R-sl4JJQ5QbzqWsUW3Yx";
-    const myHeaders = new Headers({
-      "Authorization": "Bearer " + access_token
-    });
-
-    // Allows access when CORS is disabled
-    const cors = "https://cors-anywhere.herokuapp.com/"
-
-    const urlToFetch = `${cors}https://api.yelp.com/v3/businesses/search?term=vegetarian restaurants&location=new york&limit=25`
-    console.log(urlToFetch);
-
-    fetch(urlToFetch, {
-        headers: myHeaders
-      }).then(result => {
-        return result.json();
-      }).then(places => {
-        if (places.businesses[0]) {
-          let updatedBusinesses = [];
-          for (let i = 0; i < places.businesses.length; i++) {
-            const business = places.businesses[i];
-            const updatedBusiness = {
-              name: business.name,
-              address: business.location.display_address.join(', '),
-              rating: business.rating,
-              review_count: business.review_count,
-              price: business.price,
-              coordinates: business.coordinates,
-              image_url: business.image_url,
-              url: business.url
-            }
-            updatedBusinesses.push(updatedBusiness);
-          }
-          console.log(updatedBusinesses);
-
-          this.setState({
-            locations: updatedBusinesses
-          },
-            this.initMap
-          )
-        }
-
-      }).catch(error => {
-        console.log(error);
-      });
 
     // let oldLocations = this.state.locations[1];
     // let updatedLocations = []
@@ -334,19 +288,75 @@ class Map extends Component {
     map.fitBounds(bounds);
   }
 
+  handleSearchText = (value) => {
+    this.setState({
+      searchValue: value
+    })
+  }
+
+  handleSearchButton = () => {
+    console.log('search')
+
+    // Authorization info for Yelp
+    // https://forum.freecodecamp.org/t/authorization-http-header-for-yelp-fusion-api-access-token/140974
+    const access_token = "Opsi88BMRhY9PANt58XH8NSBCbDCLLnHL5VLKDmhaOt4qoruzhDzZcqAdCIAAO59a5UvhRFFAqdR6SSZ65VWNpiSsyyX-sLl3TLQNUg1sqi1R-sl4JJQ5QbzqWsUW3Yx";
+    const myHeaders = new Headers({
+      "Authorization": "Bearer " + access_token
+    });
+
+    // Allows access when CORS is disabled
+    const cors = "https://cors-anywhere.herokuapp.com/"
+
+    const urlToFetch = `${cors}https://api.yelp.com/v3/businesses/search?term=vegetarian restaurants&location=${this.state.searchValue}&limit=25`
+
+    fetch(urlToFetch, {
+        headers: myHeaders
+      }).then(result => {
+        return result.json();
+      }).then(places => {
+        if (places.businesses[0]) {
+          let updatedBusinesses = [];
+          for (let i = 0; i < places.businesses.length; i++) {
+            const business = places.businesses[i];
+            const updatedBusiness = {
+              name: business.name,
+              address: business.location.display_address.join(', '),
+              rating: business.rating,
+              review_count: business.review_count,
+              price: business.price,
+              coordinates: business.coordinates,
+              image_url: business.image_url,
+              url: business.url
+            }
+            updatedBusinesses.push(updatedBusiness);
+          }
+          console.log(updatedBusinesses);
+
+          this.setState({
+            locations: updatedBusinesses
+          },
+            this.initMap
+          )
+        }
+
+      }).catch(error => {
+        console.log(error);
+      });
+  }
+
   handlePriceFilter = (value) => {
     this.setState({
       priceFilterValue: value
     },
-    this.filterRestaurants)
-  }
+    this.filterRestaurants
+  )}
 
   handleRatingFilter = (value) => {
     this.setState({
       ratingFilterValue: value
     },
-    this.filterRestaurants)
-  }
+    this.filterRestaurants
+  )}
 
   filterRestaurants = () => {
     let { locations, priceFilterValue, ratingFilterValue } = this.state;
@@ -397,6 +407,8 @@ class Map extends Component {
           show={this.show}
           handlePriceFilter={this.handlePriceFilter}
           handleRatingFilter={this.handleRatingFilter}
+          handleSearchText={this.handleSearchText}
+          handleSearchButton={this.handleSearchButton}
         />
         <div id="map"></div>
       </div>

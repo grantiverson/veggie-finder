@@ -17,8 +17,8 @@ class Sidebar extends Component {
         <div className="sidebar-container">
           <p>Use our Veggie Finder to find restaurants that serve the best vegetarian food in the the area!</p>
           <div className="sidebar-button-container">
-            <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY"></input>
-            <input id="search-within-time" type="button" value="Search"></input>
+            <input id="search-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY" onChange={(e) => this.props.handleSearchText(e.target.value)}></input>
+            <input id="search-text-button" type="button" value="Search" onClick={this.props.handleSearchButton}></input>
             <div>
               <p>Price:</p>
               <select id="price-filter" onChange={(e) => this.props.handlePriceFilter(e.target.value)}>
