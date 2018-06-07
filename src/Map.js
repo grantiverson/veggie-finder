@@ -10,6 +10,8 @@ import yelpStars10 from './images/yelp-stars-10.png';
 
 let map;
 let markers = [];
+let yelpStars = [yelpStars6, yelpStars7, yelpStars8, yelpStars9, yelpStars10]
+
 
 class Map extends Component {
   constructor(props) {
@@ -18,7 +20,7 @@ class Map extends Component {
     this.state = {
       locations: [
         {
-          name: 'Dandelion Communitea Caf&eacute;',
+          name: 'Dandelion Communitea Cafe;',
           address: '618 N Thornton Ave, Orlando, FL 32803',
           rating: 4.5,
           review_count: 674,
@@ -29,7 +31,7 @@ class Map extends Component {
         },
         {
           name: 'Dajen Eats',
-          address: 'NOT UPDATED',
+          address: '4845 N Orange Blossom Trl, Orlando, FL 32810',
           rating: 5,
           review_count: 30,
           price: '$$',
@@ -186,6 +188,7 @@ class Map extends Component {
   initMap = () => {
 
     let { locations } = this.state;
+    let { populateInfoWindow } = this
 
     markers = [];
 
@@ -223,38 +226,38 @@ class Map extends Component {
     }
     map.fitBounds(bounds);
 
-    function populateInfoWindow(marker, infoWindow) {
 
-      if (infoWindow.marker !== marker) {
-        markers.forEach(marker => {
-          marker.setAnimation(null);
-        })
+  }
 
-        infoWindow.marker = marker;
-        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+  populateInfoWindow = (marker, infoWindow) => {
 
-        let yelpStars = [yelpStars6, yelpStars7, yelpStars8, yelpStars9, yelpStars10]
+    if (infoWindow.marker !== marker) {
+      markers.forEach(marker => {
+        marker.setAnimation(null);
+      })
 
-        infoWindow.setContent(
-         `<img class="info-window-img" src=${marker.image_url} alt=${marker.name}>
-          <div class="info-window-container">
-            <div class="info-window-text-container">
-              <a className="info-window-link"href=${marker.url}><h2 className="info-window-name">${marker.name}</h2></a>
-              <p className="info-window-address">${marker.address}</p>
-              <p className="info-window-price">${marker.price}</p>
-            </div>
-            <img className="info-window-rating-img"src=${yelpStars[marker.rating * 2 - 6]} alt="${marker.rating}">
-            <a className="info-window-link"href=${marker.url}><img id="yelp-logo" src=${yelpLogo} alt="yelp!"></a>
-            <p>Based on ${marker.review_count} reviews</p>
-         </div>`
-        )
-        infoWindow.open(map, marker);
-        infoWindow.addListener('closeclick', function() {
-          marker.setAnimation(null);
-          infoWindow.setMarker = null;
-        })
+      infoWindow.marker = marker;
+      marker.setAnimation(window.google.maps.Animation.BOUNCE);
 
-      }
+      infoWindow.setContent(
+       `<img class="info-window-img" src=${marker.image_url} alt=${marker.name}>
+        <div class="info-window-container">
+          <div class="info-window-text-container">
+            <a className="info-window-link"href=${marker.url}><h2 className="info-window-name">${marker.name}</h2></a>
+            <p className="info-window-address">${marker.address}</p>
+            <p className="info-window-price">${marker.price}</p>
+          </div>
+          <img className="info-window-rating-img"src=${yelpStars[marker.rating * 2 - 6]} alt=${marker.rating}>
+          <a className="info-window-link"href=${marker.url}><img id="yelp-logo" src=${yelpLogo} alt="yelp!"></a>
+          <p>Based on ${marker.review_count} reviews</p>
+       </div>`
+      )
+      infoWindow.open(map, marker);
+      infoWindow.addListener('closeclick', function() {
+        marker.setAnimation(null);
+        infoWindow.setMarker = null;
+      })
+
     }
   }
 
@@ -396,6 +399,9 @@ class Map extends Component {
           handleSearchText={this.handleSearchText}
           handleSearchButton={this.handleSearchButton}
           locations={this.state.locations}
+          markers={markers}
+          yelpStars={yelpStars}
+          yelpLogo={yelpLogo}
         />
         <div id="map"></div>
       </div>

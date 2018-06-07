@@ -9,23 +9,15 @@
   z-index: 2;
 }
 #sidebar {
-  height: 190px;
-  width: calc(100% - 21px);
+  width: 100%;
   border-bottom: 1px solid #bbb;
-  border-right: 1px solid #bbb;
-  transition: width 1s, top 1s, left 1s;
   background-color: white;
   position: absolute;
   z-index: 1;
-  padding: 30px 10px;
-  top: -170px;
 }
-#sidebar:hover {
-  top: 0;
-}
-#menu-button {
+#sidebar-button {
   position: absolute;
-  top: 210px;
+  top: 110px;
   right: 10px;
   width: 30px;
   height: 30px;
@@ -37,17 +29,80 @@
   font-size: 0;
   cursor: pointer;
 }
-#sidebar-button-container,
-#sidebar-ratings-container {
+#search-filter-container {
+  padding: 30px 10px;
+  height: 90px;
+}
+#sidebar-inputs-container {
   display: flex;
   flex-wrap: wrap;
 }
-.filter-container {
+#search-text-container {
   margin-right: 10px;
 }
-.filter-container p {
-  margin-bottom: 0;
+#search-text-button,
+#price-filter,
+#rating-filter {
+  margin-left: 10px;
 }
+.locations-list-container{
+  width: 100%;
+  position: absolute;
+  top: calc(100vh - 350px);
+  background-color: white;
+  border-top: 1px solid #bbb;
+  text-align: center;
+}
+#locations-list-button {
+  width: 30px;
+  height: 30px;
+  background-image: url('images/menu-icon.png');
+  background-size: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  font-size: 0;
+  cursor: pointer;
+}
+.locations-list{
+  height: 316px;
+  width: 100%;
+  overflow: scroll;
+  background-color: white;
+  border-top: 1px solid #bbb;
+  text-align: left;
+}
+.list-item {
+  overflow: auto;
+  border: 1px solid #bbb;
+  margin: 0 0 10px 10px;
+  box-shadow: 1px 1px 5px #ccc;
+}
+.list-item-img-container {
+  float: left;
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+}
+.list-item-img {
+  height: 150px;
+}
+.list-item-container {
+  float: left;
+  margin-left: 10px;
+}
+.list-item-container h2 {
+  font-size: 1em;
+  margin: 5px 0 0;
+}
+.list-item-container p {
+  font-size: .8em;
+  margin: 0 0 5px;
+}
+.list-item-text-container{
+  margin-bottom: 30px;
+}
+
 #map {
   position: absolute;
   top: 30px;
@@ -72,11 +127,32 @@
   margin-bottom: 30px;
 }
 #yelp-logo {
+  margin-left: 10px;
   width: 64px;
 }
 
 @media screen and (min-width: 600px) {
   #sidebar {
-    width: 250px;
+    width: 450px;
+    border-right: 1px solid #bbb;
+    border-bottom: none;
+  }
+  .locations-list-container{
+    position: static;
+    border-top: none;
+  }
+  #locations-list-button {
+    display: none;
+  }
+  .locations-list{
+    height: calc(100vh - 151px);
+    width: 100%;
+    overflow: scroll;
+    background-color: white;
+    border-top: 1px solid #bbb;
+    text-align: left;
+  }
+  .list-item-text-container{
+    max-width: 260px;
   }
 }
