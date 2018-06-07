@@ -283,8 +283,6 @@ class Map extends Component {
   }
 
   handleSearchButton = () => {
-    console.log('search')
-
     // Authorization info for Yelp
     // https://forum.freecodecamp.org/t/authorization-http-header-for-yelp-fusion-api-access-token/140974
     const access_token = "Opsi88BMRhY9PANt58XH8NSBCbDCLLnHL5VLKDmhaOt4qoruzhDzZcqAdCIAAO59a5UvhRFFAqdR6SSZ65VWNpiSsyyX-sLl3TLQNUg1sqi1R-sl4JJQ5QbzqWsUW3Yx";
@@ -318,7 +316,6 @@ class Map extends Component {
             }
             updatedBusinesses.push(updatedBusiness);
           }
-          console.log(updatedBusinesses);
 
           this.setState({
             locations: updatedBusinesses
@@ -390,7 +387,7 @@ class Map extends Component {
   render() {
     return (
       <div>
-        <div className="header">Veggie Finder</div>
+        <div id="header">Veggie Finder</div>
         <Sidebar
           hide={this.hide}
           show={this.show}

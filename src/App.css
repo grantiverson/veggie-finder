@@ -1,4 +1,4 @@
-.header {
+#header {
   width: 100vw;
   height: 30px;
   text-align: center;
@@ -8,22 +8,22 @@
   position: absolute;
   z-index: 2;
 }
-.sidebar {
+#sidebar {
   height: 190px;
   width: calc(100% - 21px);
   border-bottom: 1px solid #bbb;
   border-right: 1px solid #bbb;
-  transition: width 1s, top 1s;
+  transition: width 1s, top 1s, left 1s;
   background-color: white;
   position: absolute;
   z-index: 1;
   padding: 30px 10px;
   top: -170px;
 }
-.sidebar:hover {
+#sidebar:hover {
   top: 0;
 }
-.menu-button {
+#menu-button {
   position: absolute;
   top: 210px;
   right: 10px;
@@ -37,8 +37,8 @@
   font-size: 0;
   cursor: pointer;
 }
-.sidebar-button-container,
-.sidebar-ratings-container {
+#sidebar-button-container,
+#sidebar-ratings-container {
   display: flex;
   flex-wrap: wrap;
 }
@@ -49,7 +49,9 @@
   margin-bottom: 0;
 }
 #map {
-  height: 100vh;
+  position: absolute;
+  top: 30px;
+  height: calc(100vh - 30px);
   width: 100%;
 }
 .info-window-img {
@@ -74,8 +76,7 @@
 }
 
 @media screen and (min-width: 600px) {
-  .sidebar {
+  #sidebar {
     width: 250px;
-    float: left;
   }
 }
