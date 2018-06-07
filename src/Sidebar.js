@@ -5,12 +5,6 @@ class Sidebar extends Component {
   // toggleNav = () => {
   // }
 
-
-
-  filterRestaurants = () => {
-
-  }
-
   render() {
     return(
       <div className="sidebar">
@@ -21,18 +15,28 @@ class Sidebar extends Component {
           Menu Button
         </button>
         <div className="sidebar-container">
-          <p>Use our Veggie Finder to find restaurants that serve the best vegetarian food in the Orlando area!</p>
+          <p>Use our Veggie Finder to find restaurants that serve the best vegetarian food in the the area!</p>
           <div className="sidebar-button-container">
+            <div>
+              <select id="max-duration">
+                <option value="10">10 min</option>
+                <option value="15">15 min</option>
+                <option value="30">30 min</option>
+                <option value="60">1 hour</option>
+              </select>
+            </div>
+            <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY"></input>
+            <input id="search-within-time" type="button" value="Search"></input>
             <input type="button" value="Show All" onClick={this.props.show}></input>
             <div id="price-buttons">
-              <select id="price-selector" onChange={(e) => this.props.filterRestaurants(e.target.value)}>
+              <select id="price-filter" onChange={(e) => this.props.handlePriceFilter(e.target.value)}>
                 <option value="any-price">Any price</option>
                 <option value="$">$</option>
                 <option value="$$">$$</option>
               </select>
             </div>
             <div id="rating-buttons">
-              <select id="rating-selector" onChange={(e) => this.props.filterRestaurants(e.target.value)}>
+              <select id="rating-filter" onChange={(e) => this.props.handleRatingFilter(e.target.value)}>
                 <option value="any-rating">Any rating</option>
                 <option value="5">5</option>
                 <option value="4.5">4.5+</option>

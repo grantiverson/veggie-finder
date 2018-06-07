@@ -147,20 +147,19 @@ class Map extends Component {
           image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/oiMk6yN57BJegG2RKYQLPg/180s.jpg',
           url: 'https://www.yelp.com/biz/sweet-tomatoes-orlando?osq=sweet+tomatoes+4678+e+colonial+dr'
         }
-      ]
+      ],
+      priceFilterValue: 'any price',
+      ratingFilterValue: 'any rating'
     }
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     const googleMap = document.createElement('script');
     googleMap.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAlON1P3WcMsZMFUhEOXrvVftIg02fEVN4&v=3&callback=initMap';
     document.body.appendChild(googleMap);
 
     window.initMap = this.initMap;
 
-  }
-
-  componentDidMount() {
     // Authorization info for Yelp
     // https://forum.freecodecamp.org/t/authorization-http-header-for-yelp-fusion-api-access-token/140974
     const access_token = "Opsi88BMRhY9PANt58XH8NSBCbDCLLnHL5VLKDmhaOt4qoruzhDzZcqAdCIAAO59a5UvhRFFAqdR6SSZ65VWNpiSsyyX-sLl3TLQNUg1sqi1R-sl4JJQ5QbzqWsUW3Yx";
@@ -171,10 +170,7 @@ class Map extends Component {
     // Allows access when CORS is disabled
     const cors = "https://cors-anywhere.herokuapp.com/"
 
-    let oldLocations = this.state.locations[1];
-    let updatedLocations = []
-
-    const urlToFetch = `${cors}https://api.yelp.com/v3/businesses/search?term=${oldLocations.name}&latitude=${oldLocations.coordinates.latitude}&longitude=${oldLocations.coordinates.longitude}&limit=1`
+    const urlToFetch = `${cors}https://api.yelp.com/v3/businesses/search?term=vegetarian restaurants&location=orlando&limit=25`
     console.log(urlToFetch);
 
     fetch(urlToFetch, {
@@ -183,34 +179,76 @@ class Map extends Component {
         return result.json();
       }).then(places => {
         if (places.businesses[0]) {
-          const returnedBusiness = places.businesses[0];
-          let updatedBusiness = {
-            name: returnedBusiness.name,
-            address: returnedBusiness.location.display_address.join(', '),
-            rating: returnedBusiness.rating,
-            review_count: returnedBusiness.review_count,
-            price: returnedBusiness.price,
-            coordinates: returnedBusiness.coordinates,
-            image_url: returnedBusiness.image_url,
-            url: returnedBusiness.url
-          };
+          let updatedBusinesses = [];
+          for (let i = 0; i < places.businesses.length; i++) {
+            const business = places.businesses[i];
+            const updatedBusiness = {
+              name: business.name,
+              address: business.location.display_address.join(', '),
+              rating: business.rating,
+              review_count: business.review_count,
+              price: business.price,
+              coordinates: business.coordinates,
+              image_url: business.image_url,
+              url: business.url
+            }
+            updatedBusinesses.push(updatedBusiness);
+          }
+          console.log(updatedBusinesses);
 
-          this.setState(prevState => {
-            prevState.locations[1] = updatedBusiness
+          this.setState({
+            locations: updatedBusinesses
           },
-            console.log(this.state.locations),
-            this.forceUpdate(console.log('component updated'))
+            this.initMap
           )
         }
 
       }).catch(error => {
         console.log(error);
       });
+
+    // let oldLocations = this.state.locations[1];
+    // let updatedLocations = []
+    //
+    // const urlToFetch = `${cors}https://api.yelp.com/v3/businesses/search?term=${oldLocations.name}&latitude=${oldLocations.coordinates.latitude}&longitude=${oldLocations.coordinates.longitude}&limit=1`
+    // console.log(urlToFetch);
+    //
+    // fetch(urlToFetch, {
+    //     headers: myHeaders
+    //   }).then(result => {
+    //     return result.json();
+    //   }).then(places => {
+    //     if (places.businesses[0]) {
+    //       const returnedBusiness = places.businesses[0];
+    //       console.log(returnedBusiness)
+    //       let updatedBusiness = {
+    //         name: returnedBusiness.name,
+    //         address: returnedBusiness.location.display_address.join(', '),
+    //         rating: returnedBusiness.rating,
+    //         review_count: returnedBusiness.review_count,
+    //         price: returnedBusiness.price,
+    //         coordinates: returnedBusiness.coordinates,
+    //         image_url: returnedBusiness.image_url,
+    //         url: returnedBusiness.url
+    //       };
+    //
+    //       this.setState(prevState => {
+    //         prevState.locations[1] = updatedBusiness
+    //       },
+    //         this.initMap
+    //       )
+    //     }
+    //
+    //   }).catch(error => {
+    //     console.log(error);
+    //   });
   }
 
   initMap = () => {
 
     let { locations } = this.state;
+
+    markers = [];
 
     map = new window.google.maps.Map(document.getElementById('map'), {mapTypeControl: false});
 
@@ -296,23 +334,26 @@ class Map extends Component {
     map.fitBounds(bounds);
   }
 
-  filterRestaurants = (value) => {
+  handlePriceFilter = (value) => {
+    this.setState({
+      priceFilterValue: value
+    },
+    this.filterRestaurants)
+  }
 
-    let { locations } = this.state;
+  handleRatingFilter = (value) => {
+    this.setState({
+      ratingFilterValue: value
+    },
+    this.filterRestaurants)
+  }
 
-    this.hide();
+  filterRestaurants = () => {
+    let { locations, priceFilterValue, ratingFilterValue } = this.state;
 
-    let priceFilterValue = 'any-price';
-    let ratingFilterValue = 'any-rating';
+    this.hide;
 
-    if (value === 'any-price' || value === '$' || value === '$$') {
-      priceFilterValue = value;
-    }
-    if (value === 'any-rating' || parseInt(value, 10)) {
-      ratingFilterValue = value;
-    }
-
-    let bounds = new window.google.maps.LatLngBounds();
+    // let bounds = new window.google.maps.LatLngBounds();
 
     for (let i = 0; i < locations.length; i++) {
       let priceMatch = false;
@@ -321,8 +362,8 @@ class Map extends Component {
       let locationPrice = locations[i].price;
       let locationRating = locations[i].rating;
 
-      (locationPrice === priceFilterValue || priceFilterValue === 'any-price') ? priceMatch = true : null;
-      (locationRating >= ratingFilterValue || ratingFilterValue === 'any-rating') ? ratingMatch = true : null;
+      (locationPrice === priceFilterValue || priceFilterValue === 'all') ? priceMatch = true : null;
+      (locationRating >= ratingFilterValue || ratingFilterValue === 'all') ? ratingMatch = true : null;
 
       if (priceMatch && ratingMatch) {
         markers[i].setAnimation(window.google.maps.Animation.BOUNCE);
@@ -331,12 +372,12 @@ class Map extends Component {
           markers[i].setAnimation(null);
         }, 1400);
 
-        bounds.extend(markers[i].position);
+        // bounds.extend(markers[i].position);
       } else {
         markers[i].setMap(null);
       }
     }
-    map.fitBounds(bounds);
+    // map.fitBounds(bounds);
   }
 
   render() {
@@ -346,7 +387,8 @@ class Map extends Component {
         <Sidebar
           hide={this.hide}
           show={this.show}
-          filterRestaurants={this.filterRestaurants}
+          handlePriceFilter={this.handlePriceFilter}
+          handleRatingFilter={this.handleRatingFilter}
         />
         <div id="map"></div>
       </div>
