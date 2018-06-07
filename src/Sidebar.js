@@ -19,7 +19,6 @@ class Sidebar extends Component {
           <div className="sidebar-button-container">
             <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY"></input>
             <input id="search-within-time" type="button" value="Search"></input>
-            <input type="button" value="Show All" onClick={this.props.show}></input>
             <div>
               <p>Price:</p>
               <select id="price-filter" onChange={(e) => this.props.handlePriceFilter(e.target.value)}>
