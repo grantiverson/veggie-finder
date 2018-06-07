@@ -354,7 +354,7 @@ class Map extends Component {
 
     let bounds = new window.google.maps.LatLngBounds();
 
-    let locationFound = false;
+    let atLeastOneLocationFound = false;
 
     for (let i = 0; i < locations.length; i++) {
       let priceMatch = false;
@@ -373,14 +373,14 @@ class Map extends Component {
           markers[i].setAnimation(null);
         }, 1400);
 
-        locationFound = true;
+        atLeastOneLocationFound = true;
         bounds.extend(markers[i].position);
       } else {
         markers[i].setMap(null);
       }
     }
 
-    if (!locationFound) {
+    if (!atLeastOneLocationFound) {
       alert('No restaurants found. Please try another search.')
       return
     }

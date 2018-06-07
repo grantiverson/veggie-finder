@@ -12,7 +12,8 @@
 .sidebar-container {
   padding: 10px;
 }
-.sidebar-button-container {
+.sidebar-button-container,
+.sidebar-ratings-container {
   display: flex;
   flex-wrap: wrap;
 }
