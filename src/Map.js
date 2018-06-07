@@ -148,6 +148,27 @@ class Map extends Component {
           url: 'https://www.yelp.com/biz/sweet-tomatoes-orlando?osq=sweet+tomatoes+4678+e+colonial+dr'
         }
       ],
+      styles: [
+        {
+          "stylers": [
+            { "hue": "#007fff" },
+            { "saturation": 89 }
+          ]
+        },
+        {
+          "featureType": "water",
+          "stylers": [
+            { "color": "#ffffff" }
+          ]
+        },
+        {
+          "featureType": "administrative.country",
+          "elementType": "labels",
+          "stylers": [
+            { "visibility": "off" }
+          ]
+        }
+      ],
       priceFilterValue: 'any price',
       ratingFilterValue: '3',
       searchValue: ''
@@ -160,42 +181,6 @@ class Map extends Component {
     document.body.appendChild(googleMap);
 
     window.initMap = this.initMap;
-
-    // let oldLocations = this.state.locations[1];
-    // let updatedLocations = []
-    //
-    // const urlToFetch = `${cors}https://api.yelp.com/v3/businesses/search?term=${oldLocations.name}&latitude=${oldLocations.coordinates.latitude}&longitude=${oldLocations.coordinates.longitude}&limit=1`
-    // console.log(urlToFetch);
-    //
-    // fetch(urlToFetch, {
-    //     headers: myHeaders
-    //   }).then(result => {
-    //     return result.json();
-    //   }).then(places => {
-    //     if (places.businesses[0]) {
-    //       const returnedBusiness = places.businesses[0];
-    //       console.log(returnedBusiness)
-    //       let updatedBusiness = {
-    //         name: returnedBusiness.name,
-    //         address: returnedBusiness.location.display_address.join(', '),
-    //         rating: returnedBusiness.rating,
-    //         review_count: returnedBusiness.review_count,
-    //         price: returnedBusiness.price,
-    //         coordinates: returnedBusiness.coordinates,
-    //         image_url: returnedBusiness.image_url,
-    //         url: returnedBusiness.url
-    //       };
-    //
-    //       this.setState(prevState => {
-    //         prevState.locations[1] = updatedBusiness
-    //       },
-    //         this.initMap
-    //       )
-    //     }
-    //
-    //   }).catch(error => {
-    //     console.log(error);
-    //   });
   }
 
   initMap = () => {
@@ -204,7 +189,10 @@ class Map extends Component {
 
     markers = [];
 
-    map = new window.google.maps.Map(document.getElementById('map'), {mapTypeControl: false});
+    map = new window.google.maps.Map(document.getElementById('map'), {
+      mapTypeControl: false,
+      styles: this.state.styles
+    });
 
     const infoWindow = new window.google.maps.InfoWindow();
 
