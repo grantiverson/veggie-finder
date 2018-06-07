@@ -19,7 +19,7 @@ class Sidebar extends Component {
           <input id="search-text" type="text" placeholder="Enter a location" onChange={(e) => this.props.handleSearchText(e.target.value)}></input>
           <input id="search-text-button" type="button" value="Search" onClick={this.props.handleSearchButton}></input>
           <div className="sidebar-ratings-container">
-            <div>
+            <div className="filter-container">
               <p>Price:</p>
               <select id="price-filter" onChange={(e) => this.props.handlePriceFilter(e.target.value)}>
                 <option value="any-price">Any price</option>
@@ -28,7 +28,7 @@ class Sidebar extends Component {
                 <option value="$$$">$$$</option>
               </select>
             </div>
-            <div>
+            <div className="filter-container">
               <p>Rating:</p>
               <select id="rating-filter" onChange={(e) => this.props.handleRatingFilter(e.target.value)}>
                 <option value="3">3+</option>
