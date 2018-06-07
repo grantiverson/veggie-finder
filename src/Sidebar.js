@@ -25,7 +25,7 @@ class Sidebar extends Component {
                 <option value="$$$">$$$</option>
               </select>
               <select id="rating-filter" onChange={(e) => this.props.handleRatingFilter(e.target.value)}>
-                <option value="3">3+</option>
+                <option value="3">Any rating</option>
                 <option value="3.5">3.5+</option>
                 <option value="4">4</option>
                 <option value="4.5">4.5+</option>
@@ -39,6 +39,7 @@ class Sidebar extends Component {
           locations={this.props.locations}
           yelpStars={this.props.yelpStars}
           yelpLogo={this.props.yelpLogo}
+          findMarkerById={this.props.findMarkerById}
         />
       </div>
     )

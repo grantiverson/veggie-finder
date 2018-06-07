@@ -91,6 +91,8 @@
 }
 .list-item-img {
   height: 150px;
+  width: 150px;
+  object-fit: cover;
 }
 .list-item-container {
   float: left;

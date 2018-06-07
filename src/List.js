@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 
 class List extends Component {
   render() {
-    const { markers, locations, yelpStars, yelpLogo } = this.props
+    const { locations, yelpStars, yelpLogo } = this.props
 
     return(
       <div className="locations-list-container">
         <button id="locations-list-button"></button>
         <div className="locations-list">
           {locations.map((location, index) => {
-            return <div className="list-item" key={index}>
+            return <div className="list-item" key={index} onClick={() => this.props.findMarkerById(index)}>
               <div className="list-item-img-container">
                 <img className="list-item-img" src={location.image_url} alt={location.name}></img>
               </div>

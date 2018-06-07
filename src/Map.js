@@ -10,6 +10,7 @@ import yelpStars10 from './images/yelp-stars-10.png';
 
 let map;
 let markers = [];
+let infoWindow;
 let yelpStars = [yelpStars6, yelpStars7, yelpStars8, yelpStars9, yelpStars10]
 
 
@@ -197,11 +198,12 @@ class Map extends Component {
       styles: this.state.styles
     });
 
-    const infoWindow = new window.google.maps.InfoWindow();
+    infoWindow = new window.google.maps.InfoWindow();
 
     const bounds = new window.google.maps.LatLngBounds();
 
-    for (let location of locations) {
+    for (let i = 0; i < locations.length; i++) {
+      const location = locations[i];
       const marker = new window.google.maps.Marker({
         position: {lat: location.coordinates.latitude, lng: location.coordinates.longitude},
         map: map,
@@ -210,26 +212,25 @@ class Map extends Component {
         address: location.address,
         rating: location.rating,
         price: location.price,
-        id: location.index,
+        id: i,
         image_url: location.image_url,
         url: location.url,
         review_count: location.review_count
       })
 
       marker.addListener('click', function() {
-        populateInfoWindow(this, infoWindow);
+        populateInfoWindow(this);
       })
+
 
       markers.push(marker);
 
       bounds.extend(marker.position);
     }
     map.fitBounds(bounds);
-
-
   }
 
-  populateInfoWindow = (marker, infoWindow) => {
+  populateInfoWindow = (marker) => {
 
     if (infoWindow.marker !== marker) {
       markers.forEach(marker => {
@@ -259,6 +260,11 @@ class Map extends Component {
       })
 
     }
+  }
+
+  findMarkerById = (index) => {
+    const marker = markers[index];
+    this.populateInfoWindow(marker);
   }
 
   hide = () => {
@@ -398,6 +404,7 @@ class Map extends Component {
           handleRatingFilter={this.handleRatingFilter}
           handleSearchText={this.handleSearchText}
           handleSearchButton={this.handleSearchButton}
+          findMarkerById={this.findMarkerById}
           locations={this.state.locations}
           markers={markers}
           yelpStars={yelpStars}
