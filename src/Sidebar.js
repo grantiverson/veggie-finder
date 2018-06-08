@@ -19,7 +19,7 @@ class Sidebar extends Component {
             </div>
             <div className="filter-container">
               <select id="price-filter" onChange={(e) => this.props.handlePriceFilter(e.target.value)}>
-                <option value="any-price">Any price</option>
+                <option value="any price">Any price</option>
                 <option value="$">$</option>
                 <option value="$$">$$</option>
                 <option value="$$$">$$$</option>
@@ -36,10 +36,9 @@ class Sidebar extends Component {
         </div>
         <List
           markers={this.props.markers}
-          locations={this.props.locations}
           yelpStars={this.props.yelpStars}
           yelpLogo={this.props.yelpLogo}
-          findMarkerById={this.props.findMarkerById}
+          findMarkerByName={this.props.findMarkerByName}
         />
       </div>
     )

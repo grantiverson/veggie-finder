@@ -9,7 +9,7 @@ import yelpStars9 from './images/yelp-stars-9.png';
 import yelpStars10 from './images/yelp-stars-10.png';
 
 let map;
-let markers = [];
+// let markers = [];
 let infoWindow;
 let yelpStars = [yelpStars6, yelpStars7, yelpStars8, yelpStars9, yelpStars10]
 
@@ -172,6 +172,7 @@ class Map extends Component {
           ]
         }
       ],
+      markers: [],
       priceFilterValue: 'any price',
       ratingFilterValue: '3',
       searchValue: ''
@@ -189,9 +190,9 @@ class Map extends Component {
   initMap = () => {
 
     let { locations } = this.state;
-    let { populateInfoWindow } = this
+    let { populateInfoWindow } = this;
 
-    markers = [];
+    let updatedMarkers = [];
 
     map = new window.google.maps.Map(document.getElementById('map'), {
       mapTypeControl: false,
@@ -223,28 +224,37 @@ class Map extends Component {
       })
 
 
-      markers.push(marker);
+      updatedMarkers.push(marker);
 
       bounds.extend(marker.position);
     }
     map.fitBounds(bounds);
+
+    this.setState({
+      markers: updatedMarkers
+    },
+      this.filterRestaurants
+    )
   }
 
   populateInfoWindow = (marker) => {
 
     if (infoWindow.marker !== marker) {
-      markers.forEach(marker => {
-        marker.setAnimation(null);
+      this.setState((previousState) => {
+        const updatedMarkers = previousState.markers.map(marker => {
+          marker.setAnimation(null);
+        })
+        return {updatedMarkers}
       })
+
 
       infoWindow.marker = marker;
       marker.setAnimation(window.google.maps.Animation.BOUNCE);
 
       infoWindow.setContent(
-       `<img class="info-window-img" src=${marker.image_url} alt=${marker.name}>
-        <div class="info-window-container">
+       `<div class="info-window-container">
           <div class="info-window-text-container">
-            <a className="info-window-link"href=${marker.url}><h2 className="info-window-name">${marker.name}</h2></a>
+            <a className="info-window-link"href=${marker.url} target="_blank"><h2 className="info-window-name">${marker.name}</h2></a>
             <p className="info-window-address">${marker.address}</p>
             <p className="info-window-price">${marker.price}</p>
           </div>
@@ -262,27 +272,33 @@ class Map extends Component {
     }
   }
 
-  findMarkerById = (index) => {
-    const marker = markers[index];
-    this.populateInfoWindow(marker);
+  findMarkerByName = (locationName) => {
+    console.log(locationName)
   }
 
   hide = () => {
-    markers.forEach(marker => {
-      marker.setMap(null);
-      marker.setAnimation(null);
+    this.setState(previousState => {
+      const updatedMarkers = previousState.markers.map(marker => {
+        marker.setMap(null);
+        marker.setAnimation(null);
+      })
+      return {updatedMarkers}
     })
   }
 
   show = () => {
     let bounds = new window.google.maps.LatLngBounds();
 
-    markers.forEach(marker => {
-      marker.setAnimation(window.google.maps.Animation.DROP);
-      marker.setMap(map);
-      bounds.extend(marker.position);
-    })
-    map.fitBounds(bounds);
+    this.setState(previousState => {
+      const updatedMarkers = previousState.markers.map(marker => {
+        marker.setAnimation(window.google.maps.Animation.DROP);
+        marker.setMap(map);
+        bounds.extend(marker.position);
+      })
+      return {updatedMarkers}
+    },
+      map.fitBounds(bounds)
+    );
   }
 
   handleSearchText = (value) => {
@@ -321,7 +337,8 @@ class Map extends Component {
               price: business.price,
               coordinates: business.coordinates,
               image_url: business.image_url,
-              url: business.url
+              url: business.url,
+              show: true
             }
             updatedBusinesses.push(updatedBusiness);
           }
@@ -354,7 +371,7 @@ class Map extends Component {
   )}
 
   filterRestaurants = () => {
-    let { locations, priceFilterValue, ratingFilterValue } = this.state;
+    let { markers, locations, priceFilterValue, ratingFilterValue } = this.state;
 
     this.hide;
 
@@ -362,12 +379,12 @@ class Map extends Component {
 
     let atLeastOneLocationFound = false;
 
-    for (let i = 0; i < locations.length; i++) {
+    for (let i = 0; i < markers.length; i++) {
       let priceMatch = false;
       let ratingMatch = false;
 
-      let locationPrice = locations[i].price;
-      let locationRating = locations[i].rating;
+      let locationPrice = markers[i].price;
+      let locationRating = markers[i].rating;
 
       (locationPrice === priceFilterValue || priceFilterValue === 'any price') ? priceMatch = true : null;
       (locationRating >= ratingFilterValue) ? ratingMatch = true : null;
@@ -375,6 +392,7 @@ class Map extends Component {
       if (priceMatch && ratingMatch) {
         markers[i].setAnimation(window.google.maps.Animation.BOUNCE);
         markers[i].setMap(map);
+
         setTimeout(function() {
           markers[i].setAnimation(null);
         }, 1400);
@@ -383,6 +401,10 @@ class Map extends Component {
         bounds.extend(markers[i].position);
       } else {
         markers[i].setMap(null);
+        this.setState(previousState => {
+          previousState.markers[i].show = false;
+          return {state: previousState}
+        })
       }
     }
 
@@ -404,9 +426,8 @@ class Map extends Component {
           handleRatingFilter={this.handleRatingFilter}
           handleSearchText={this.handleSearchText}
           handleSearchButton={this.handleSearchButton}
-          findMarkerById={this.findMarkerById}
-          locations={this.state.locations}
-          markers={markers}
+          findMarkerByName={this.findMarkerByName}
+          markers={this.state.markers}
           yelpStars={yelpStars}
           yelpLogo={yelpLogo}
         />

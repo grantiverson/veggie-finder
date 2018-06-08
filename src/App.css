@@ -17,21 +17,7 @@
   box-shadow: 1px 1px 5px #ccc;
 }
 #sidebar-button {
-  position: absolute;
-  top: 110px;
-  right: -30px;
-  width: 40px;
-  height: 20px;
-  background-image: url('images/menu-icon.png');
-  background-size: 30px;
-  background-position: center;
-  background-repeat: no-repeat;
-  border: none;
-  font-size: 0;
-  cursor: pointer;
-  border: 1px solid #bbb;
-  transform: rotate(90deg);
-  box-shadow: 1px 0 5px #ccc;
+  display: none;
 }
 #search-filter-container {
   padding: 30px 10px;
@@ -109,12 +95,10 @@
 .list-item-text-container{
   margin-bottom: 30px;
 }
-
 #map {
+  height: calc(100vh - 150px);
   position: absolute;
-  top: 30px;
-  height: calc(100vh - 30px);
-  width: 100%;
+  top: 150px;
 }
 .info-window-img {
   float: left;
@@ -144,6 +128,24 @@
     border-right: 1px solid #bbb;
     border-bottom: none;
   }
+  #sidebar-button {
+    position: absolute;
+    top: 110px;
+    right: -30px;
+    width: 40px;
+    height: 20px;
+    background-image: url('images/menu-icon.png');
+    background-size: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    font-size: 0;
+    cursor: pointer;
+    border: 1px solid #bbb;
+    transform: rotate(90deg);
+    box-shadow: 1px 0 5px #ccc;
+    display: block;
+  }
   .locations-list-container{
     position: static;
     border-top: none;
@@ -162,5 +164,12 @@
   }
   .list-item-text-container{
     max-width: 285px;
+  }
+  #map {
+    float: right;
+    position: static;
+    top: 30px;
+    height: calc(100vh - 30px);
+    width: calc(100% - 475px);
   }
 }
