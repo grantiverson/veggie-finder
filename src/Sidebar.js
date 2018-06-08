@@ -38,7 +38,7 @@ class Sidebar extends Component {
           markers={this.props.markers}
           yelpStars={this.props.yelpStars}
           yelpLogo={this.props.yelpLogo}
-          findMarkerByName={this.props.findMarkerByName}
+          findMarker={this.props.findMarker}
         />
       </div>
     )

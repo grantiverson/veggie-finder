@@ -9,8 +9,9 @@ class List extends Component {
       <div className="locations-list-container">
         <button id="locations-list-button"></button>
         <div className="locations-list">
-          {markers.map((marker, index) => {
-            return <div className="list-item" key={index} onClick={() => this.props.findMarkerByName(marker.name)}>
+          {markers.filter(marker => marker.map)
+            .map((marker, index) => {
+            return <div className="list-item" key={index} onClick={(e) => this.props.findMarker(marker)}>
               <div className="list-item-img-container">
                 <img className="list-item-img" src={marker.image_url} alt={marker.name}></img>
               </div>

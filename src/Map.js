@@ -272,8 +272,8 @@ class Map extends Component {
     }
   }
 
-  findMarkerByName = (locationName) => {
-    console.log(locationName)
+  findMarker = (marker) => {
+    this.populateInfoWindow(marker)
   }
 
   hide = () => {
@@ -307,7 +307,7 @@ class Map extends Component {
     })
   }
 
-  handleSearchButton = () => {
+  searchForLocations = () => {
     // Authorization info for Yelp
     // https://forum.freecodecamp.org/t/authorization-http-header-for-yelp-fusion-api-access-token/140974
     const access_token = "Opsi88BMRhY9PANt58XH8NSBCbDCLLnHL5VLKDmhaOt4qoruzhDzZcqAdCIAAO59a5UvhRFFAqdR6SSZ65VWNpiSsyyX-sLl3TLQNUg1sqi1R-sl4JJQ5QbzqWsUW3Yx";
@@ -338,7 +338,6 @@ class Map extends Component {
               coordinates: business.coordinates,
               image_url: business.image_url,
               url: business.url,
-              show: true
             }
             updatedBusinesses.push(updatedBusiness);
           }
@@ -401,12 +400,12 @@ class Map extends Component {
         bounds.extend(markers[i].position);
       } else {
         markers[i].setMap(null);
-        this.setState(previousState => {
-          previousState.markers[i].show = false;
-          return {state: previousState}
-        })
       }
     }
+
+    this.setState({
+      markers
+    })
 
     if (!atLeastOneLocationFound) {
       alert('No restaurants found. Please try another search.')
@@ -425,8 +424,8 @@ class Map extends Component {
           handlePriceFilter={this.handlePriceFilter}
           handleRatingFilter={this.handleRatingFilter}
           handleSearchText={this.handleSearchText}
-          handleSearchButton={this.handleSearchButton}
-          findMarkerByName={this.findMarkerByName}
+          handleSearchButton={this.searchForLocations}
+          findMarker={this.findMarker}
           markers={this.state.markers}
           yelpStars={yelpStars}
           yelpLogo={yelpLogo}
