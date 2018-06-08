@@ -13,7 +13,8 @@ class List extends Component {
           {/* Filters markers to only display the ones visible on the map */}
           {markers.filter(marker => marker.map)
             .map((marker, index) => {
-            return <div className="list-item" key={index} onClick={(e) => this.props.findMarker(marker)}>
+            // list items that show information about each restaurant
+            return <div className="list-item" key={index} onClick={(e) => this.props.populateInfoWindow(marker)}>
               <div className="list-item-img-container">
                 <img className="list-item-img" src={marker.image_url} alt={marker.name}></img>
               </div>

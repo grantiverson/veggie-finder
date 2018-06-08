@@ -33,11 +33,12 @@ class Sidebar extends Component {
             </div>
           </div>
         </div>
+        {/* The list component displays details about all of the restaurants displayed on the map */}
         <List
           markers={this.props.markers}
           yelpStars={this.props.yelpStars}
           yelpLogo={this.props.yelpLogo}
-          findMarker={this.props.findMarker}
+          populateInfoWindow={this.props.populateInfoWindow}
           toggleShowList={this.props.toggleShowList}
           showList={this.props.showList}
         />

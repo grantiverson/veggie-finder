@@ -9,8 +9,8 @@ import yelpStars9 from './images/yelp-stars-9.png';
 import yelpStars10 from './images/yelp-stars-10.png';
 
 let map;
-// let markers = [];
 let infoWindow;
+// This array loads the images needed for yelp reviews
 let yelpStars = [yelpStars6, yelpStars7, yelpStars8, yelpStars9, yelpStars10]
 
 
@@ -19,6 +19,7 @@ class Map extends Component {
     super(props)
 
     this.state = {
+      // Information about 13 locations that will display immediately upon load
       locations: [
         {
           name: 'Dandelion Communitea Cafe;',
@@ -151,6 +152,7 @@ class Map extends Component {
           url: 'https://www.yelp.com/biz/sweet-tomatoes-orlando?osq=sweet+tomatoes+4678+e+colonial+dr'
         }
       ],
+      // Google Maps styles
       styles: [
         {
           "stylers": [
@@ -172,22 +174,31 @@ class Map extends Component {
           ]
         }
       ],
+      // Array that will contain the Google Maps markers
       markers: [],
+      // State of the price-filter select tag
       priceFilterValue: 'any price',
+      // State of the rating-filter select tag
       ratingFilterValue: '3',
+      // State of the search-text input tag
       searchValue: '',
+      // State of the locations-list-container div
       showList: true
     }
   }
 
   componentDidMount() {
+    // Creates the Google Maps map script tag, calls the API request, then
+    // appends the tag to the end of the document
     const googleMap = document.createElement('script');
     googleMap.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAlON1P3WcMsZMFUhEOXrvVftIg02fEVN4&v=3&callback=initMap';
     document.body.appendChild(googleMap);
 
+    // Makes the initMap function globally accessable
     window.initMap = this.initMap;
   }
 
+  // Initializes the Google Maps map
   initMap = () => {
 
     let { locations } = this.state;
@@ -204,6 +215,7 @@ class Map extends Component {
 
     const bounds = new window.google.maps.LatLngBounds();
 
+    // Loops over the this.state.locations array and generates/updates map markers
     for (let i = 0; i < locations.length; i++) {
       const location = locations[i];
       const marker = new window.google.maps.Marker({
@@ -220,6 +232,7 @@ class Map extends Component {
         review_count: location.review_count
       })
 
+      // Adds an event listener to each marker
       marker.addListener('click', function() {
         populateInfoWindow(this);
       })
@@ -238,9 +251,12 @@ class Map extends Component {
     )
   }
 
+  // Generates content for the infoWindow that will display when a list-item or
+  // map marker is clicked
   populateInfoWindow = (marker) => {
 
     if (infoWindow.marker !== marker) {
+      // Removes animations from the markers
       this.setState((previousState) => {
         const updatedMarkers = previousState.markers.map(marker => {
           marker.setAnimation(null);
@@ -250,8 +266,10 @@ class Map extends Component {
 
 
       infoWindow.marker = marker;
+      // Makes the selected marker bounce
       marker.setAnimation(window.google.maps.Animation.BOUNCE);
 
+      // Sets the content of the infoWindow and opens the window
       infoWindow.setContent(
        `<div class="info-window-container">
           <div class="info-window-text-container">
@@ -265,6 +283,7 @@ class Map extends Component {
        </div>`
       )
       infoWindow.open(map, marker);
+      // Stops animations if the infoWindow is closed
       infoWindow.addListener('closeclick', function() {
         marker.setAnimation(null);
         infoWindow.setMarker = null;
@@ -273,10 +292,7 @@ class Map extends Component {
     }
   }
 
-  findMarker = (marker) => {
-    this.populateInfoWindow(marker)
-  }
-
+  // Hides all markers
   hide = () => {
     this.setState(previousState => {
       const updatedMarkers = previousState.markers.map(marker => {
@@ -287,27 +303,14 @@ class Map extends Component {
     })
   }
 
-  show = () => {
-    let bounds = new window.google.maps.LatLngBounds();
-
-    this.setState(previousState => {
-      const updatedMarkers = previousState.markers.map(marker => {
-        marker.setAnimation(window.google.maps.Animation.DROP);
-        marker.setMap(map);
-        bounds.extend(marker.position);
-      })
-      return {updatedMarkers}
-    },
-      map.fitBounds(bounds)
-    );
-  }
-
+  // Controls the state of the search-text input tag
   handleSearchText = (value) => {
     this.setState({
       searchValue: value
     })
   }
 
+  // Calls Yelp API and handles return
   searchForLocations = () => {
     // Authorization info for Yelp
     // https://forum.freecodecamp.org/t/authorization-http-header-for-yelp-fusion-api-access-token/140974
@@ -356,6 +359,7 @@ class Map extends Component {
       });
   }
 
+  // Controls the state of the price-filter select tag
   handlePriceFilter = (value) => {
     this.setState({
       priceFilterValue: value
@@ -363,6 +367,7 @@ class Map extends Component {
     this.filterRestaurants
   )}
 
+  // Controls the state of the rating-filter select tag
   handleRatingFilter = (value) => {
     this.setState({
       ratingFilterValue: value
@@ -370,6 +375,7 @@ class Map extends Component {
     this.filterRestaurants
   )}
 
+  // Decides which locations to show and which to hide
   filterRestaurants = () => {
     let { markers, locations, priceFilterValue, ratingFilterValue } = this.state;
 
@@ -389,6 +395,7 @@ class Map extends Component {
       (locationPrice === priceFilterValue || priceFilterValue === 'any price') ? priceMatch = true : null;
       (locationRating >= ratingFilterValue) ? ratingMatch = true : null;
 
+      // If the location matches both filters it will be shown
       if (priceMatch && ratingMatch) {
         markers[i].setAnimation(window.google.maps.Animation.BOUNCE);
         markers[i].setMap(map);
@@ -408,6 +415,7 @@ class Map extends Component {
       markers
     })
 
+    // Makes sure at least one is returned to prevent bounds problem
     if (!atLeastOneLocationFound) {
       alert('No restaurants found. Please try another search.')
       return
@@ -415,6 +423,8 @@ class Map extends Component {
     map.fitBounds(bounds);
   }
 
+  // Controls the state of the locations-list-container div which shows or
+  // hides the list of location deatils
   toggleShowList = () => {
     this.setState(previousState => {
       let toggleShowListState = previousState;
@@ -434,13 +444,12 @@ class Map extends Component {
         <div id="header">Veggie Finder</div>
         <Sidebar
           hide={this.hide}
-          show={this.show}
           handlePriceFilter={this.handlePriceFilter}
           handleRatingFilter={this.handleRatingFilter}
           handleSearchText={this.handleSearchText}
           handleSearchButton={this.searchForLocations}
           toggleShowList={this.toggleShowList}
-          findMarker={this.findMarker}
+          populateInfoWindow={this.populateInfoWindow}
           markers={this.state.markers}
           showList={this.state.showList}
           yelpStars={yelpStars}
