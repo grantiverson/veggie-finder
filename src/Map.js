@@ -175,7 +175,8 @@ class Map extends Component {
       markers: [],
       priceFilterValue: 'any price',
       ratingFilterValue: '3',
-      searchValue: ''
+      searchValue: '',
+      showList: true
     }
   }
 
@@ -414,6 +415,19 @@ class Map extends Component {
     map.fitBounds(bounds);
   }
 
+  toggleShowList = () => {
+    this.setState(previousState => {
+      let toggleShowListState = previousState;
+      if (previousState.showList === true) {
+        toggleShowListState.showList = false
+      } else {
+        previousState.showList = true
+      }
+      return { toggleShowListState }
+    },
+    )
+  }
+
   render() {
     return (
       <div>
@@ -425,12 +439,14 @@ class Map extends Component {
           handleRatingFilter={this.handleRatingFilter}
           handleSearchText={this.handleSearchText}
           handleSearchButton={this.searchForLocations}
+          toggleShowList={this.toggleShowList}
           findMarker={this.findMarker}
           markers={this.state.markers}
+          showList={this.state.showList}
           yelpStars={yelpStars}
           yelpLogo={yelpLogo}
         />
-        <div id="map"></div>
+        <div id="map" className={(this.state.showList ? "show" : "hide")} aria-label="Google Maps Container"></div>
       </div>
     );
   }

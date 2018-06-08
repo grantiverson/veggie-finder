@@ -9,7 +9,6 @@ class Sidebar extends Component {
   render() {
     return(
       <div id="sidebar">
-        <button id="sidebar-button"></button>
         <div id="search-filter-container">
           <p>Use our Veggie Finder to find restaurants that serve the best vegetarian food in the the area!</p>
           <div id="sidebar-inputs-container">
@@ -39,6 +38,8 @@ class Sidebar extends Component {
           yelpStars={this.props.yelpStars}
           yelpLogo={this.props.yelpLogo}
           findMarker={this.props.findMarker}
+          toggleShowList={this.props.toggleShowList}
+          showList={this.props.showList}
         />
       </div>
     )

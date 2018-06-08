@@ -6,9 +6,11 @@ class List extends Component {
 
 
     return(
-      <div className="locations-list-container">
-        <button id="locations-list-button"></button>
+      // Shows or hides locations-list-container when the locations-list-button is clicked
+      <div className={"locations-list-container " + (this.props.showList ? "show" : "hide")}>
+        <button id="locations-list-button" onClick={(e) => this.props.toggleShowList()}></button>
         <div className="locations-list">
+          {/* Filters markers to only display the ones visible on the map */}
           {markers.filter(marker => marker.map)
             .map((marker, index) => {
             return <div className="list-item" key={index} onClick={(e) => this.props.findMarker(marker)}>

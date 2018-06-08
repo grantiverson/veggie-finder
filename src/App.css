@@ -16,9 +16,6 @@
   z-index: 1;
   box-shadow: 1px 1px 5px #ccc;
 }
-#sidebar-button {
-  display: none;
-}
 #search-filter-container {
   padding: 30px 10px;
   height: 90px;
@@ -35,7 +32,7 @@
 #rating-filter {
   margin-left: 10px;
 }
-.locations-list-container{
+.locations-list-container {
   width: 100%;
   position: absolute;
   top: calc(100vh - 350px);
@@ -44,6 +41,9 @@
   text-align: center;
   box-shadow: -1px -1px 5px #ccc;
 }
+.locations-list-container.hide {
+  top: calc(100vh - 34px);
+}
 #locations-list-button {
   width: 30px;
   height: 30px;
@@ -51,9 +51,13 @@
   background-size: 30px;
   background-position: center;
   background-repeat: no-repeat;
+  border-radius: 50%;
   border: none;
   font-size: 0;
   cursor: pointer;
+}
+.locations-list-container.hide #locations-list-button {
+  transform: rotate(180deg);
 }
 .locations-list{
   height: 316px;
@@ -62,6 +66,9 @@
   background-color: white;
   border-top: 1px solid #bbb;
   text-align: left;
+}
+.locations-list-container.hide .locations-list {
+  height: 0;
 }
 .list-item {
   overflow: auto;
@@ -97,7 +104,7 @@
 }
 #map {
   height: calc(100vh - 150px);
-  position: absolute;
+  position: relative;
   top: 150px;
 }
 .info-window-img {
@@ -128,34 +135,20 @@
     border-right: 1px solid #bbb;
     border-bottom: none;
   }
-  #sidebar-button {
-    position: absolute;
-    top: 110px;
-    right: -30px;
-    width: 40px;
-    height: 20px;
-    background-image: url('images/menu-icon.png');
-    background-size: 30px;
-    background-position: center;
-    background-repeat: no-repeat;
-    border: none;
-    font-size: 0;
-    cursor: pointer;
-    border: 1px solid #bbb;
-    transform: rotate(90deg);
-    box-shadow: 1px 0 5px #ccc;
-    display: block;
-  }
   .locations-list-container{
     position: static;
     border-top: none;
+    border-bottom: 1px solid #bbb;
     box-shadow: none;
   }
-  #locations-list-button {
-    display: none;
+  .locations-list-container.show #locations-list-button {
+    transform: rotate(180deg);
+  }
+  .locations-list-container.hide #locations-list-button {
+    transform: rotate(0deg);
   }
   .locations-list{
-    height: calc(100vh - 151px);
+    height: calc(100vh - 185px);
     width: 100%;
     overflow: scroll;
     background-color: white;
@@ -165,11 +158,17 @@
   .list-item-text-container{
     max-width: 285px;
   }
-  #map {
+  #map.show {
     float: right;
     position: static;
     top: 30px;
     height: calc(100vh - 30px);
     width: calc(100% - 475px);
+  }
+  #map.hide {
+    position: static;
+    top: 30px;
+    height: calc(100vh - 30px);
+    width: 100%;
   }
 }
