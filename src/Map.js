@@ -190,9 +190,19 @@ class Map extends Component {
   componentDidMount() {
     // Creates the Google Maps map script tag, calls the API request, then
     // appends the tag to the end of the document
-    const googleMap = document.createElement('script');
-    googleMap.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAlON1P3WcMsZMFUhEOXrvVftIg02fEVN4&v=3&callback=initMap';
-    document.body.appendChild(googleMap);
+    function loadError(oError) {
+      alert('There was an error loading the map :/');
+    }
+
+    function appendScriptToBody(url, onloadFunction) {
+      var googleMap = document.createElement("script");
+      googleMap.onerror = loadError;
+      if (onloadFunction) { googleMap.onload = onloadFunction; }
+      document.body.appendChild(googleMap);
+      googleMap.src = url;
+    }
+
+    appendScriptToBody('https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAlON1P3WcMsZMFUhEOXrvVftIg02fEVN4&v=3&callback=initMap');
 
     // Makes the initMap function globally accessable
     window.initMap = this.initMap;

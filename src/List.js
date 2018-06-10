@@ -8,13 +8,15 @@ class List extends Component {
     return(
       // Shows or hides locations-list-container when the locations-list-button is clicked
       <div className={"locations-list-container " + (this.props.showList ? "show" : "hide")}>
-        <button id="locations-list-button" onClick={(e) => this.props.toggleShowList()}></button>
+        <button id="locations-list-button" onClick={(e) => this.props.toggleShowList()}
+          aria-label={(this.props.showList ? "Hide" : "Show") + "list of locations"}
+          ></button>
         <div className="locations-list">
           {/* Filters markers to only display the ones visible on the map */}
           {markers.filter(marker => marker.map)
             .map((marker, index) => {
             // list items that show information about each restaurant
-            return <div className="list-item" key={index} onClick={(e) => this.props.populateInfoWindow(marker)}>
+            return <div className="list-item" key={index} tabIndex="0" aria-label={"Details about " + marker.name} onClick={(e) => this.props.populateInfoWindow(marker)} onKeyPress={(e) => this.props.populateInfoWindow(marker)}>
               <div className="list-item-img-container">
                 <img className="list-item-img" src={marker.image_url} alt={marker.name}></img>
               </div>
@@ -25,7 +27,7 @@ class List extends Component {
                   <p className="list-item-price">{marker.price}</p>
                 </div>
                 <img className="list-item-rating-img"src={yelpStars[marker.rating * 2 - 6]} alt={marker.rating}></img>
-                <a className="list-item-link"href={marker.url}><img id="yelp-logo" src={yelpLogo} alt="yelp!"></img></a>
+                <a className="list-item-link"href={marker.url} tabIndex="-1"><img id="yelp-logo" src={yelpLogo} alt="yelp!"></img></a>
                 <p>Based on {marker.review_count} reviews</p>
               </div>
             </div>
