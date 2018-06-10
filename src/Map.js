@@ -269,7 +269,7 @@ class Map extends Component {
       // Removes animations from the markers
       this.setState((previousState) => {
         const updatedMarkers = previousState.markers.map(marker => {
-          marker.setAnimation(null);
+          return marker.setAnimation(null);
         })
         return {updatedMarkers}
       })
@@ -306,8 +306,8 @@ class Map extends Component {
   hide = () => {
     this.setState(previousState => {
       const updatedMarkers = previousState.markers.map(marker => {
-        marker.setMap(null);
-        marker.setAnimation(null);
+        return (marker.setMap(null),
+        marker.setAnimation(null));
       })
       return {updatedMarkers}
     })
@@ -387,7 +387,7 @@ class Map extends Component {
 
   // Decides which locations to show and which to hide
   filterRestaurants = () => {
-    let { markers, locations, priceFilterValue, ratingFilterValue } = this.state;
+    let { markers, priceFilterValue, ratingFilterValue } = this.state;
 
     this.hide;
 
@@ -402,8 +402,8 @@ class Map extends Component {
       let locationPrice = markers[i].price;
       let locationRating = markers[i].rating;
 
-      (locationPrice === priceFilterValue || priceFilterValue === 'any price') ? priceMatch = true : null;
-      (locationRating >= ratingFilterValue) ? ratingMatch = true : null;
+      priceMatch = (locationPrice === priceFilterValue || priceFilterValue === 'any price') ? true : false;
+      ratingMatch = (locationRating >= ratingFilterValue) ? true : false;
 
       // If the location matches both filters it will be shown
       if (priceMatch && ratingMatch) {
