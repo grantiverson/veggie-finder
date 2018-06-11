@@ -135,6 +135,10 @@
     border-right: 1px solid #bbb;
     border-bottom: none;
   }
+  #search-filter-container {
+    padding: 30px 10px 0;
+    height: 87px;
+  }
   .locations-list-container{
     position: static;
     border-top: none;
