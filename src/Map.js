@@ -11,7 +11,7 @@ import yelpStars10 from './images/yelp-stars-10.png';
 let map;
 let infoWindow;
 // This array loads the images needed for yelp reviews
-let yelpStars = [yelpStars6, yelpStars7, yelpStars8, yelpStars9, yelpStars10]
+const yelpStars = [yelpStars6, yelpStars7, yelpStars8, yelpStars9, yelpStars10]
 
 
 class Map extends Component {
