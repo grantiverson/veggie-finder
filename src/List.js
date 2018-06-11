@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 
 class List extends Component {
   render() {
-    const { markers, yelpStars, yelpLogo } = this.props
+    const { markers, yelpStars, yelpLogo, showList, toggleShowList } = this.props
 
 
     return(
       // Shows or hides locations-list-container when the locations-list-button is clicked
-      <div className={"locations-list-container " + (this.props.showList ? "show" : "hide")}>
-        <button id="locations-list-button" onClick={(e) => this.props.toggleShowList()}
-          aria-label={(this.props.showList ? "Hide" : "Show") + "list of locations"}
+      <div className={"locations-list-container " + (showList ? "show" : "hide")}>
+        <button id="locations-list-button" onClick={(e) => toggleShowList()}
+          aria-label={(showList ? "Hide" : "Show") + "list of locations"}
           ></button>
         <div className="locations-list">
           {/* Filters markers to only display the ones visible on the map */}
