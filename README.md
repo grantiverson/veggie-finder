@@ -4,7 +4,7 @@ I created this website as a project for my Front-End Web Development Nanodegree 
 
 ## Run live
 
-Run it live at [iverson.io/projects/veggie-finder](https://iverson.io/projects/veggie-finder)
+Run it live at [veggie-finder.herokuapp.com/](https://veggie-finder.herokuapp.com/)
 
 ## Download
 
