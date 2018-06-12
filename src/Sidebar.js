@@ -6,7 +6,7 @@ const Sidebar = (props) => {
   return(
     <div id="sidebar">
       <div id="search-filter-container">
-        <p>Use our Veggie Finder to find restaurants that serve the best vegetarian food in the the area!</p>
+        <p>Use our Veggie Finder to find restaurants that serve the best vegetarian food in the area!</p>
         <div id="sidebar-inputs-container" role="Search">
           <div id="search-text-container">
             <input id="search-text" type="text" placeholder="Enter a location" aria-label="Search textbox" onChange={(e) => props.handleSearchText(e.target.value)}></input>
