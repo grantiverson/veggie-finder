@@ -1,190 +1,187 @@
 import React, { Component } from 'react';
-import Sidebar from './Sidebar';
+import SearchFilter from './SearchFilter';
+import LocationsList from './LocationsList'
+import Map from './Map';
 
-import yelpLogo from './images/yelp-logo.png';
-import yelpStars6 from './images/yelp-stars-6.png';
-import yelpStars7 from './images/yelp-stars-7.png';
-import yelpStars8 from './images/yelp-stars-8.png';
-import yelpStars9 from './images/yelp-stars-9.png';
-import yelpStars10 from './images/yelp-stars-10.png';
+import yelpLogo from '../images/yelp-logo.png';
+import yelpStars6 from '../images/yelp-stars-6.png';
+import yelpStars7 from '../images/yelp-stars-7.png';
+import yelpStars8 from '../images/yelp-stars-8.png';
+import yelpStars9 from '../images/yelp-stars-9.png';
+import yelpStars10 from '../images/yelp-stars-10.png';
 
 let map;
 let infoWindow;
 // This array loads the images needed for yelp reviews
 const yelpStars = [yelpStars6, yelpStars7, yelpStars8, yelpStars9, yelpStars10]
 
-
-class Map extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      // Information about 13 locations that will display immediately upon load
-      locations: [
-        {
-          name: 'Dandelion Communitea Cafe;',
-          address: '618 N Thornton Ave, Orlando, FL 32803',
-          rating: 4.5,
-          review_count: 674,
-          price: '$$',
-          coordinates: {latitude: 28.552027, longitude: -81.365711},
-          image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/u_gBxBIpx5r48teO7XykSw/180s.jpg',
-          url: 'https://www.yelp.com/biz/dandelion-communitea-caf%C3%A9-orlando-2?osq=dandelion'
-        },
-        {
-          name: 'Dajen Eats',
-          address: '4845 N Orange Blossom Trl, Orlando, FL 32810',
-          rating: 5,
-          review_count: 30,
-          price: '$$',
-          coordinates: {latitude: 28.602381, longitude: -81.418670},
-          image_url: 'https://s3-media3.fl.yelpcdn.com/bphoto/A7YnuHm-rLc6vOWh_zovXg/180s.jpg',
-          url: 'https://www.yelp.com/biz/dajen-eats-orlando-2?osq=Dajen+Eats'
-        },
-        {
-          name: 'Dixie Dharma',
-          address: '2603 E S St, Orlando, FL 32803',
-          rating: 4.5,
-          review_count: 147,
-          price: '$$',
-          coordinates: {latitude: 28.538881, longitude: -81.349373},
-          image_url: 'https://s3-media3.fl.yelpcdn.com/bphoto/KDb8UrN6mhXwoyHMawifog/180s.jpg',
-          url: 'https://www.yelp.com/biz/dixie-dharma-orlando-2?osq=Dixie+Dharma'
-        },
-        {
-          name: 'Loving Hut',
-          address: '2101 E Colonial Dr, Orlando, FL 32803',
-          rating: 4,
-          review_count: 174,
-          price: '$',
-          coordinates: {latitude: 28.553386, longitude: -81.354787},
-          image_url: 'https://s3-media2.fl.yelpcdn.com/bphoto/G7MmlmbNrEP3DS11kRlulw/180s.jpg',
-          url: 'https://www.yelp.com/biz/loving-hut-orlando?osq=loving+hut'
-        },
-        {
-          name: 'Raw Juicing and Detox',
-          address: '898 E Washington St, Orlando, FL 32801',
-          rating: 4.5,
-          review_count: 58,
-          price: '$$',
-          coordinates: {latitude: 28.543536, longitude: -81.366743},
-          image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/2cd8FNlARME_FP2rQ-YNmw/180s.jpg',
-          url: 'https://www.yelp.com/biz/raw-juicing-and-detox-orlando?osq=Raw+Juicing+and+Detox'
-        },
-        {
-          name: 'Veggie Garden',
-          address: '1216 E Colonial Dr, Orlando, FL 32803',
-          rating: 4.5,
-          review_count: 83,
-          price: '$',
-          coordinates: {latitude: 28.552801, longitude: -81.363701},
-          image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/sUdr1FrrtnM0f6zH9MQQQQ/180s.jpg',
-          url: 'https://www.yelp.com/biz/veggie-garden-orlando-2?osq=Veggie+Garden'
-        },
-        {
-          name: 'Infusion Tea',
-          address: '1600 Edgewater Dr, Orlando, FL 32804',
-          rating: 4,
-          review_count: 436,
-          price: '$',
-          coordinates: {latitude: 28.565833, longitude: -81.389666},
-          image_url: 'https://s3-media2.fl.yelpcdn.com/bphoto/YcwSq2oXVfKjtFF5rbyEVw/180s.jpg',
-          url: 'https://www.yelp.com/biz/infusion-tea-orlando'
-        },
-        {
-          name: 'Juice\'d Orlando',
-          address: '12 N Summerlin Ave, Orlando, FL 32801',
-          rating: 4,
-          review_count: 65,
-          price: '$$',
-          coordinates: {latitude: 28.542880, longitude: -81.368618},
-          image_url: 'https://s3-media4.fl.yelpcdn.com/bphoto/VjRWo6jr-KuOr_FV0HBIlA/180s.jpg',
-          url: 'https://www.yelp.com/biz/juiced-orlando-3?osq=juice%27d'
-        },
-        {
-          name: 'Khasiyat',
-          address: '852 W Lancaster Rd, Orlando, FL 32809',
-          rating: 4,
-          review_count: 77,
-          price: '$$',
-          coordinates: {latitude: 28.464931, longitude: -81.389559},
-          image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/53GlgJH46ImFluaf3sjsJQ/180s.jpg',
-          url: 'https://www.yelp.com/biz/khasiyat-indian-restaurant-orlando?osq=khasiyat'
-        },
-        {
-          name: 'Maoz',
-          address: '4200 Conroy Rd, Orlando, FL 32839',
-          rating: 4.5,
-          review_count: 84,
-          price: '$',
-          coordinates: {latitude: 28.485318, longitude: -81.432146},
-          image_url: 'https://s3-media3.fl.yelpcdn.com/bphoto/bR_IpWyyb6Bpe802OT4Kog/180s.jpg',
-          url: 'https://www.yelp.com/biz/maoz-orlando?osq=Maoz'
-        },
-        {
-          name: 'Skyebird',
-          address: '3201 Corrine Dr, Orlando, FL 32803',
-          rating: 4.5,
-          review_count: 104,
-          price: '$',
-          coordinates: {latitude: 28.568161, longitude: -81.343824},
-          image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/-WQi8wu_82flrgC75eX6GQ/180s.jpg',
-          url: 'https://www.yelp.com/biz/skyebird-orlando-2?osq=Skyebird'
-        },
-        {
-          name: 'Nature\'s Table Cafe',
-          address: '8001 S Orange Blossom Trl, Orlando, FL 32809',
-          rating: 3,
-          review_count: 10,
-          price: '$',
-          coordinates: {latitude: 28.446041, longitude: -81.395459},
-          image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/tLf3ug-1YZ4lFc4gOAtwrA/180s.jpg',
-          url: 'https://www.yelp.com/biz/natures-table-orlando-2?osq=nature%27s+table'
-        },
-        {
-          name: 'Sweet Tomatoes',
-          address: '4678 E Colonial Dr, Orlando, FL 32803',
-          rating: 3.5,
-          review_count: 127,
-          price: '$$',
-          coordinates: {latitude: 28.552238, longitude: -81.327420},
-          image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/oiMk6yN57BJegG2RKYQLPg/180s.jpg',
-          url: 'https://www.yelp.com/biz/sweet-tomatoes-orlando?osq=sweet+tomatoes+4678+e+colonial+dr'
-        }
-      ],
-      // Google Maps styles
-      styles: [
-        {
-          "stylers": [
-            { "hue": "#007fff" },
-            { "saturation": 89 }
-          ]
-        },
-        {
-          "featureType": "water",
-          "stylers": [
-            { "color": "#ffffff" }
-          ]
-        },
-        {
-          "featureType": "administrative.country",
-          "elementType": "labels",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        }
-      ],
-      // Array that will contain the Google Maps markers
-      markers: [],
-      // State of the price-filter select tag
-      priceFilterValue: 'any price',
-      // State of the rating-filter select tag
-      ratingFilterValue: '3',
-      // State of the search-text input tag
-      searchValue: '',
-      // State of the locations-list-container div
-      showList: true
-    }
+class App extends Component {
+  state = {
+    // Information about 13 locations that will display immediately upon load
+    locations: [
+      {
+        name: 'Dandelion Communitea Cafe;',
+        address: '618 N Thornton Ave, Orlando, FL 32803',
+        rating: 4.5,
+        review_count: 674,
+        price: '$$',
+        coordinates: {latitude: 28.552027, longitude: -81.365711},
+        image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/u_gBxBIpx5r48teO7XykSw/180s.jpg',
+        url: 'https://www.yelp.com/biz/dandelion-communitea-caf%C3%A9-orlando-2?osq=dandelion'
+      },
+      {
+        name: 'Dajen Eats',
+        address: '4845 N Orange Blossom Trl, Orlando, FL 32810',
+        rating: 5,
+        review_count: 30,
+        price: '$$',
+        coordinates: {latitude: 28.602381, longitude: -81.418670},
+        image_url: 'https://s3-media3.fl.yelpcdn.com/bphoto/A7YnuHm-rLc6vOWh_zovXg/180s.jpg',
+        url: 'https://www.yelp.com/biz/dajen-eats-orlando-2?osq=Dajen+Eats'
+      },
+      {
+        name: 'Dixie Dharma',
+        address: '2603 E S St, Orlando, FL 32803',
+        rating: 4.5,
+        review_count: 147,
+        price: '$$',
+        coordinates: {latitude: 28.538881, longitude: -81.349373},
+        image_url: 'https://s3-media3.fl.yelpcdn.com/bphoto/KDb8UrN6mhXwoyHMawifog/180s.jpg',
+        url: 'https://www.yelp.com/biz/dixie-dharma-orlando-2?osq=Dixie+Dharma'
+      },
+      {
+        name: 'Loving Hut',
+        address: '2101 E Colonial Dr, Orlando, FL 32803',
+        rating: 4,
+        review_count: 174,
+        price: '$',
+        coordinates: {latitude: 28.553386, longitude: -81.354787},
+        image_url: 'https://s3-media2.fl.yelpcdn.com/bphoto/G7MmlmbNrEP3DS11kRlulw/180s.jpg',
+        url: 'https://www.yelp.com/biz/loving-hut-orlando?osq=loving+hut'
+      },
+      {
+        name: 'Raw Juicing and Detox',
+        address: '898 E Washington St, Orlando, FL 32801',
+        rating: 4.5,
+        review_count: 58,
+        price: '$$',
+        coordinates: {latitude: 28.543536, longitude: -81.366743},
+        image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/2cd8FNlARME_FP2rQ-YNmw/180s.jpg',
+        url: 'https://www.yelp.com/biz/raw-juicing-and-detox-orlando?osq=Raw+Juicing+and+Detox'
+      },
+      {
+        name: 'Veggie Garden',
+        address: '1216 E Colonial Dr, Orlando, FL 32803',
+        rating: 4.5,
+        review_count: 83,
+        price: '$',
+        coordinates: {latitude: 28.552801, longitude: -81.363701},
+        image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/sUdr1FrrtnM0f6zH9MQQQQ/180s.jpg',
+        url: 'https://www.yelp.com/biz/veggie-garden-orlando-2?osq=Veggie+Garden'
+      },
+      {
+        name: 'Infusion Tea',
+        address: '1600 Edgewater Dr, Orlando, FL 32804',
+        rating: 4,
+        review_count: 436,
+        price: '$',
+        coordinates: {latitude: 28.565833, longitude: -81.389666},
+        image_url: 'https://s3-media2.fl.yelpcdn.com/bphoto/YcwSq2oXVfKjtFF5rbyEVw/180s.jpg',
+        url: 'https://www.yelp.com/biz/infusion-tea-orlando'
+      },
+      {
+        name: 'Juice\'d Orlando',
+        address: '12 N Summerlin Ave, Orlando, FL 32801',
+        rating: 4,
+        review_count: 65,
+        price: '$$',
+        coordinates: {latitude: 28.542880, longitude: -81.368618},
+        image_url: 'https://s3-media4.fl.yelpcdn.com/bphoto/VjRWo6jr-KuOr_FV0HBIlA/180s.jpg',
+        url: 'https://www.yelp.com/biz/juiced-orlando-3?osq=juice%27d'
+      },
+      {
+        name: 'Khasiyat',
+        address: '852 W Lancaster Rd, Orlando, FL 32809',
+        rating: 4,
+        review_count: 77,
+        price: '$$',
+        coordinates: {latitude: 28.464931, longitude: -81.389559},
+        image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/53GlgJH46ImFluaf3sjsJQ/180s.jpg',
+        url: 'https://www.yelp.com/biz/khasiyat-indian-restaurant-orlando?osq=khasiyat'
+      },
+      {
+        name: 'Maoz',
+        address: '4200 Conroy Rd, Orlando, FL 32839',
+        rating: 4.5,
+        review_count: 84,
+        price: '$',
+        coordinates: {latitude: 28.485318, longitude: -81.432146},
+        image_url: 'https://s3-media3.fl.yelpcdn.com/bphoto/bR_IpWyyb6Bpe802OT4Kog/180s.jpg',
+        url: 'https://www.yelp.com/biz/maoz-orlando?osq=Maoz'
+      },
+      {
+        name: 'Skyebird',
+        address: '3201 Corrine Dr, Orlando, FL 32803',
+        rating: 4.5,
+        review_count: 104,
+        price: '$',
+        coordinates: {latitude: 28.568161, longitude: -81.343824},
+        image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/-WQi8wu_82flrgC75eX6GQ/180s.jpg',
+        url: 'https://www.yelp.com/biz/skyebird-orlando-2?osq=Skyebird'
+      },
+      {
+        name: 'Nature\'s Table Cafe',
+        address: '8001 S Orange Blossom Trl, Orlando, FL 32809',
+        rating: 3,
+        review_count: 10,
+        price: '$',
+        coordinates: {latitude: 28.446041, longitude: -81.395459},
+        image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/tLf3ug-1YZ4lFc4gOAtwrA/180s.jpg',
+        url: 'https://www.yelp.com/biz/natures-table-orlando-2?osq=nature%27s+table'
+      },
+      {
+        name: 'Sweet Tomatoes',
+        address: '4678 E Colonial Dr, Orlando, FL 32803',
+        rating: 3.5,
+        review_count: 127,
+        price: '$$',
+        coordinates: {latitude: 28.552238, longitude: -81.327420},
+        image_url: 'https://s3-media1.fl.yelpcdn.com/bphoto/oiMk6yN57BJegG2RKYQLPg/180s.jpg',
+        url: 'https://www.yelp.com/biz/sweet-tomatoes-orlando?osq=sweet+tomatoes+4678+e+colonial+dr'
+      }
+    ],
+    // Google Maps styles
+    styles: [
+      {
+        "stylers": [
+          { "hue": "#007fff" },
+          { "saturation": 89 }
+        ]
+      },
+      {
+        "featureType": "water",
+        "stylers": [
+          { "color": "#ffffff" }
+        ]
+      },
+      {
+        "featureType": "administrative.country",
+        "elementType": "labels",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      }
+    ],
+    // Array that will contain the Google Maps markers
+    markers: [],
+    // State of the price-filter select tag
+    priceFilterValue: 'any price',
+    // State of the rating-filter select tag
+    ratingFilterValue: '3',
+    // State of the search-text input tag
+    searchValue: '',
+    // State of the locations-list-container div
+    showList: true
   }
 
   componentDidMount() {
@@ -449,26 +446,34 @@ class Map extends Component {
   }
 
   render() {
+
     return (
-      <div>
+      <div className="App">
         <div id="header">Veggie Finder</div>
-        <Sidebar
-          hide={this.hide}
-          handlePriceFilter={this.handlePriceFilter}
-          handleRatingFilter={this.handleRatingFilter}
-          handleSearchText={this.handleSearchText}
-          handleSearchButton={this.searchForLocations}
-          toggleShowList={this.toggleShowList}
-          populateInfoWindow={this.populateInfoWindow}
-          markers={this.state.markers}
+        <div id="sidebar">
+          <SearchFilter
+            handleSearchText={this.handleSearchText}
+            handlePriceFilter={this.handlePriceFilter}
+            handleRatingFilter={this.handleRatingFilter}
+            searchForLocations={this.searchForLocations}
+          />
+          <LocationsList
+            yelpStars={yelpStars}
+            yelpLogo={yelpLogo}
+
+            markers={this.state.markers}
+            showList={this.state.showList}
+
+            toggleShowList={this.toggleShowList}
+            populateInfoWindow={this.populateInfoWindow}
+          />
+        </div>
+        <Map
           showList={this.state.showList}
-          yelpStars={yelpStars}
-          yelpLogo={yelpLogo}
         />
-        <div id="map" className={(this.state.showList ? "show" : "hide")} aria-label="Google Maps Container"></div>
       </div>
     );
   }
 }
 
-export default Map;
+export default App;
