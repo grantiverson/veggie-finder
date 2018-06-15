@@ -318,7 +318,8 @@ class App extends Component {
   }
 
   // Calls Yelp API and handles return
-  searchForLocations = () => {
+  searchForLocations = (e) => {
+    e.preventDefault();
     // Authorization info for Yelp
     // https://forum.freecodecamp.org/t/authorization-http-header-for-yelp-fusion-api-access-token/140974
     const access_token = "Opsi88BMRhY9PANt58XH8NSBCbDCLLnHL5VLKDmhaOt4qoruzhDzZcqAdCIAAO59a5UvhRFFAqdR6SSZ65VWNpiSsyyX-sLl3TLQNUg1sqi1R-sl4JJQ5QbzqWsUW3Yx";
@@ -435,14 +436,9 @@ class App extends Component {
   toggleShowList = () => {
     this.setState(previousState => {
       let toggleShowListState = previousState;
-      if (previousState.showList === true) {
-        toggleShowListState.showList = false
-      } else {
-        previousState.showList = true
-      }
+      toggleShowListState.showList = !previousState.showList;
       return { toggleShowListState }
-    },
-    )
+    })
   }
 
   render() {
