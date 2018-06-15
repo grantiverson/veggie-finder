@@ -3,14 +3,6 @@ import ListItem from './ListItem'
 import PropTypes from 'prop-types';
 
 const LocationsList = (props) => {
-  this.propTypes = {
-    yelpStars: PropTypes.array.isRequired,
-    yelpLogo: PropTypes.string.isRequired,
-    markers: PropTypes.array.isRequired,
-    showList:  PropTypes.bool.isRequired,
-    toggleShowList: PropTypes.func.isRequired,
-    populateInfoWindow: PropTypes.func.isRequired
-  }
 
   const { markers, yelpStars, yelpLogo, showList, toggleShowList } = props
 
@@ -42,3 +34,12 @@ const LocationsList = (props) => {
 }
 
 export default LocationsList;
+
+LocationsList.propTypes = {
+  yelpStars: PropTypes.array.isRequired,
+  yelpLogo: PropTypes.string.isRequired,
+  markers: PropTypes.array.isRequired,
+  showList:  PropTypes.bool.isRequired,
+  toggleShowList: PropTypes.func.isRequired,
+  populateInfoWindow: PropTypes.func.isRequired
+}

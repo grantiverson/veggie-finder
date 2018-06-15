@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Map = (props) => {
-  this.propTypes = {
-    showList:  PropTypes.bool.isRequired,
-  }
 
   return (
     <div
@@ -18,3 +15,7 @@ const Map = (props) => {
 }
 
 export default Map;
+
+Map.propTypes = {
+  showList:  PropTypes.bool.isRequired
+}
