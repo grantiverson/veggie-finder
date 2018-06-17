@@ -9,7 +9,7 @@ const SearchFilter = (props) => {
       <div id="sidebar-inputs-container" role="Search">
         <form id="search-text-container" onSubmit={(e) => props.searchForLocations(e)}>
           <input id="search-text" type="text" placeholder="Enter a location" aria-label="Search textbox" onChange={(e) => props.handleSearchText(e.target.value)}></input>
-          <input id="search-text-button" type="button" value="Search" aria-label="Click to search"></input>
+          <input id="search-text-button" type="submit" value="Search" aria-label="Click to search" onClick="form.submit()"></input>
         </form>
         <div className="filter-container">
           <select id="price-filter" aria-label="Filter locations by price" onChange={(e) => props.handlePriceFilter(e.target.value)}>
