@@ -1,4 +1,4 @@
-# My Reads
+# Veggie Finder
 
 I created this website as a project for my Front-End Web Development Nanodegree from Udacity. This website allows the user to find find restaurants that serve the best vegetarian food in the the area.
 
