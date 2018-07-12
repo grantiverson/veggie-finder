@@ -66,8 +66,8 @@ class App extends Component {
     showList: true
   }
 
-  componentDidUpdate() {
-    console.log('App.js updated');
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.markers !== this.state.markers
   }
 
   componentDidMount() {
