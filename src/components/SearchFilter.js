@@ -26,7 +26,7 @@ const RatingFilter = (props) => {
     <select id="rating-filter" aria-label="Filter locations by rating" onChange={(e) => props.handleRatingFilter(e.target.value)}>
       <option value="3">Any rating</option>
       <option value="3.5">3.5+</option>
-      <option value="4">4</option>
+      <option value="4">4+</option>
       <option value="4.5">4.5+</option>
       <option value="5">5</option>
     </select>
