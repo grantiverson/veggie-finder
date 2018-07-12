@@ -2,14 +2,6 @@ import React from 'react';
 import Location from './Location/Location'
 import PropTypes from 'prop-types';
 
-const ToggleButton = (props) => {
-  return (
-    <button id="locations-list-button" onClick={(e) => props.toggleShowList()}
-      aria-label={(props.showList ? "Hide" : "Show") + "list of locations"}
-    ></button>
-  )
-}
-
 const Locations = (props) => {
   // Filters list-items so the visible ones match the markers on the map
   const locations = <div className="locations-list">
