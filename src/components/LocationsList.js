@@ -2,31 +2,40 @@ import React from 'react';
 import ListItem from './ListItem'
 import PropTypes from 'prop-types';
 
-const LocationsList = (props) => {
+const ToggleButton = (props) => {
+  return (
+    <button id="locations-list-button" onClick={(e) => props.toggleShowList()}
+      aria-label={(props.showList ? "Hide" : "Show") + "list of locations"}
+    ></button>
+  )
+}
 
-  const { markers, yelpStars, yelpLogo, showList, toggleShowList } = props
+const LocationsList = (props) => {
 
   return(
     // Shows or hides locations-list-container when the locations-list-button is clicked
-    <div className={"locations-list-container " + (showList ? "show" : "hide")}>
+    <div className={"locations-list-container " + (props.showList ? "show" : "hide")}>
       {/* Aria-label changes on click so users will know if the list is displayed */}
-      <button id="locations-list-button" onClick={(e) => toggleShowList()}
-        aria-label={(showList ? "Hide" : "Show") + "list of locations"}
-      ></button>
+      <ToggleButton
+        showList={props.showList}
+        toggleShowList={props.toggleShowList}
+      />
       <div className="locations-list">
         {/* Filters list-items so the visible ones match the markers on the map */}
-        {markers.filter(marker => marker.map)
+        {props.markers.filter(marker => marker.map)
           .map((marker, index) => {
           // list items that show information about each restaurant
-          return <ListItem
-                  yelpStars={yelpStars}
-                  yelpLogo={yelpLogo}
+          return (
+            <ListItem
+              yelpStars={props.yelpStars}
+              yelpLogo={props.yelpLogo}
 
-                  key={index}
-                  marker={marker}
+              key={index}
+              marker={marker}
 
-                  populateInfoWindow={props.populateInfoWindow}
-                 />
+              populateInfoWindow={props.populateInfoWindow}
+            />
+          )
         })}
       </div>
     </div>
