@@ -154,32 +154,36 @@ class App extends Component {
           return marker.setAnimation(null);
         })
         return {updatedMarkers}
-      })
+      },
+        () => {
+          infoWindow.marker = marker,
+          // Makes the selected marker bounce
+          marker.setAnimation(window.google.maps.Animation.BOUNCE),
 
-
-      infoWindow.marker = marker;
-      // Makes the selected marker bounce
-      marker.setAnimation(window.google.maps.Animation.BOUNCE);
-
-      // Sets the content of the infoWindow and opens the window
-      infoWindow.setContent(
-       `<div class="info-window-container">
-          <div class="info-window-text-container">
-            <a className="info-window-link"href=${marker.url} target="_blank"><h2 className="info-window-name">${marker.name}</h2></a>
-            <p className="info-window-address">${marker.address}</p>
-            <p className="info-window-price">${marker.price}</p>
-          </div>
-          <img className="info-window-rating-img"src=${yelpStars[marker.rating * 2 - 6]} alt=${marker.rating}>
-          <a className="info-window-link"href=${marker.url}><img id="yelp-logo" src=${yelpLogo} alt="yelp!"></a>
-          <p>Based on ${marker.review_count} reviews</p>
-       </div>`
+          // Sets the content of the infoWindow and opens the window
+          infoWindow.setContent(
+           `<div class="info-window-container">
+              <div class="info-window-text-container">
+                <a className="info-window-link"href=${marker.url} target="_blank"><h2 className="info-window-name">${marker.name}</h2></a>
+                <p className="info-window-address">${marker.address}</p>
+                <p className="info-window-price">${marker.price}</p>
+              </div>
+              <img className="info-window-rating-img"src=${yelpStars[marker.rating * 2 - 6]} alt=${marker.rating}>
+              <a className="info-window-link"href=${marker.url}><img id="yelp-logo" src=${yelpLogo} alt="yelp!"></a>
+              <p>Based on ${marker.review_count} reviews</p>
+           </div>`
+          ),
+          infoWindow.open(map, marker),
+          // Stops animations if the infoWindow is closed
+          infoWindow.addListener('closeclick', function() {
+            marker.setAnimation(null);
+            infoWindow.setMarker = null;
+          })
+        }
       )
-      infoWindow.open(map, marker);
-      // Stops animations if the infoWindow is closed
-      infoWindow.addListener('closeclick', function() {
-        marker.setAnimation(null);
-        infoWindow.setMarker = null;
-      })
+
+
+      
 
     }
   }
