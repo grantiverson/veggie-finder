@@ -11,22 +11,26 @@ const ToggleButton = (props) => {
 }
 
 const LocationsList = (props) => {
-  {/* Filters list-items so the visible ones match the markers on the map */}
+  // Filters list-items so the visible ones match the markers on the map
   const locationsList = <div className="locations-list">
     {props.markers.filter(marker => marker.map)
       .map((marker, index) => {
         // list items that show information about each restaurant
-        return (
-          <ListItem
-            yelpStars={props.yelpStars}
-            yelpLogo={props.yelpLogo}
+        if (marker.loading) {
+          return <h2>Loading...</h2>
+        } else {
+          return (
+            <ListItem
+              yelpStars={props.yelpStars}
+              yelpLogo={props.yelpLogo}
 
-            key={index}
-            marker={marker}
+              key={index}
+              marker={marker}
 
-            populateInfoWindow={props.populateInfoWindow}
-          />
-        )
+              populateInfoWindow={props.populateInfoWindow}
+            />
+          )
+        }
       })}
   </div>
 
