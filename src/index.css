@@ -139,6 +139,7 @@ p {
   margin: 5px 0 10px;
   box-shadow: 1px 1px 5px #ccc;
   border: 1px solid #ccc;
+  height: 100px;
 }
 .list-item-img-container {
   float: left;
@@ -152,12 +153,14 @@ p {
   object-fit: cover;
 }
 .list-item-container {
+  height: 100%;
   width: calc(100% - 110px);
   padding: 5px;
+  box-sizing: border-box;
 }
 .list-item-rating-container {
   position: absolute;
-  top: 60px;
+  bottom: 5px;
 }
 
 /* List Items && Info Window */
@@ -203,6 +206,7 @@ p {
   .list-item {
     overflow-x: hidden;
     margin: 10px 10px;
+    height: 125px;
   }
   .list-item-img-container {
     height: 125px;
@@ -213,7 +217,7 @@ p {
     padding: 10px;
   }
   .list-item-rating-container {
-    top: 77px;
+    bottom: 10px;
   }
   .list-item-rating-img {
       width: 125px;
@@ -292,6 +296,9 @@ p {
   }
 
   /* List Items */
+  .list-item {
+    height: 150px;
+  }
   .list-item-img-container {
     float: left;
     height: 150px;
@@ -303,9 +310,6 @@ p {
   }
   .list-item-text-container {
     max-width: 285px;
-  }
-  .list-item-rating-container {
-    top: 95px;
   }
   .list-item-rating-img {
     width: 125px;
