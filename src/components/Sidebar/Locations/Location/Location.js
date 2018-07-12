@@ -1,15 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ListItem = (props) => {
-  this.propTypes = {
-    yelpStars: PropTypes.array.isRequired,
-    yelpLogo: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-    markers: PropTypes.array.isRequired,
-    populateInfoWindow: PropTypes.func.isRequired
-  }
-
+const Location = (props) => {
   const { marker, yelpStars, yelpLogo, populateInfoWindow } = props
 
   // Chooses the correct image from the yelpStars array based on marker.rating
@@ -27,11 +19,17 @@ const ListItem = (props) => {
           <p className="list-item-price">{marker.price}</p>
         </div>
         <img className="list-item-rating-img" src={yelpStarRatingImg} alt={marker.rating}></img>
-        <a className="list-item-link" href={marker.url} tabIndex="-1"><img id="yelp-logo" src={yelpLogo} alt="yelp!"></img></a>
+        <a className="list-item-link" href={marker.url} tabIndex="-1" target="_blank"><img id="yelp-logo" src={yelpLogo} alt="yelp!"></img></a>
         <p>Based on {marker.review_count} reviews</p>
       </div>
     </div>
   )
 }
 
-export default ListItem;
+export default Location;
+
+Location.propTypes = {
+  yelpStars: PropTypes.array.isRequired,
+  yelpLogo: PropTypes.string.isRequired,
+  populateInfoWindow: PropTypes.func.isRequired
+}

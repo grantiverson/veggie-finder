@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import SearchFilter from './SearchFilter';
-import LocationsList from './LocationsList'
-import Map from './Map';
+import Sidebar from './Sidebar/Sidebar'
+import Map from './Map/Map';
 
 import yelpLogo from '../images/yelp-logo.png';
 import yelpStars6 from '../images/yelp-stars-6.png';
@@ -20,8 +19,9 @@ class App extends Component {
     // Information about 13 locations that will display immediately upon load
     locations: [
       {
+        loading: true,
         name: 'Please search for a location',
-        rating: 0,
+        rating: 3,
         price: '$',
         coordinates: {
           latitude: 0,
@@ -64,6 +64,10 @@ class App extends Component {
     searchValue: 'Orlando',
     // State of the locations-list-container div
     showList: true
+  }
+
+  componentDidUpdate() {
+    console.log('App.js updated');
   }
 
   componentDidMount() {
@@ -120,7 +124,8 @@ class App extends Component {
         id: i,
         image_url: location.image_url,
         url: location.url,
-        review_count: location.review_count
+        review_count: location.review_count,
+        loading: location.loading
       })
 
       // Adds an event listener to each marker
@@ -235,17 +240,17 @@ class App extends Component {
   }
 
   // Controls the state of the price-filter select tag
-  handlePriceFilter = (value) => {
+  handlePriceFilter = (event) => {
     this.setState({
-      priceFilterValue: value
+      priceFilterValue: event.target.value
     },
     this.filterRestaurants
   )}
 
   // Controls the state of the rating-filter select tag
-  handleRatingFilter = (value) => {
+  handleRatingFilter = (event) => {
     this.setState({
-      ratingFilterValue: value
+      ratingFilterValue: event.target.value
     },
     this.filterRestaurants
   )}
@@ -313,24 +318,18 @@ class App extends Component {
     return (
       <div className="App">
         <div id="header">Veggie Finder</div>
-        <div id="sidebar">
-          <SearchFilter
-            handleSearchText={this.handleSearchText}
-            handlePriceFilter={this.handlePriceFilter}
-            handleRatingFilter={this.handleRatingFilter}
-            searchForLocations={this.searchForLocations}
-          />
-          <LocationsList
-            yelpStars={yelpStars}
-            yelpLogo={yelpLogo}
-
-            markers={this.state.markers}
-            showList={this.state.showList}
-
-            toggleShowList={this.toggleShowList}
-            populateInfoWindow={this.populateInfoWindow}
-          />
-        </div>
+        <Sidebar
+          handleSearchText={this.handleSearchText}
+          handlePriceFilter={this.handlePriceFilter}
+          handleRatingFilter={this.handleRatingFilter}
+          searchForLocations={this.searchForLocations}
+          yelpStars={yelpStars}
+          yelpLogo={yelpLogo}
+          markers={this.state.markers}
+          showList={this.state.showList}
+          toggleShowList={this.toggleShowList}
+          populateInfoWindow={this.populateInfoWindow}
+        />
         <Map
           showList={this.state.showList}
         />

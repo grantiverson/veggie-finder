@@ -1,5 +1,5 @@
 import React from 'react';
-import ListItem from './ListItem'
+import Location from './Location/Location'
 import PropTypes from 'prop-types';
 
 const ToggleButton = (props) => {
@@ -10,17 +10,17 @@ const ToggleButton = (props) => {
   )
 }
 
-const LocationsList = (props) => {
+const Locations = (props) => {
   // Filters list-items so the visible ones match the markers on the map
-  const locationsList = <div className="locations-list">
+  const locations = <div className="locations-list">
     {props.markers.filter(marker => marker.map)
       .map((marker, index) => {
         // list items that show information about each restaurant
         if (marker.loading) {
-          return <h2>Loading...</h2>
+          return <h2 key={index}>Loading...</h2>
         } else {
           return (
-            <ListItem
+            <Location
               yelpStars={props.yelpStars}
               yelpLogo={props.yelpLogo}
 
@@ -35,21 +35,13 @@ const LocationsList = (props) => {
   </div>
 
   return(
-    // Shows or hides locations-list-container when the locations-list-button is clicked
-    <div className={"locations-list-container " + (props.showList ? "show" : "hide")}>
-      {/* Aria-label changes on click so users will know if the list is displayed */}
-      <ToggleButton
-        showList={props.showList}
-        toggleShowList={props.toggleShowList}
-      />
-      {locationsList}
-    </div>
+    locations
   )
 }
 
-export default LocationsList;
+export default Locations;
 
-LocationsList.propTypes = {
+Locations.propTypes = {
   yelpStars: PropTypes.array.isRequired,
   yelpLogo: PropTypes.string.isRequired,
   markers: PropTypes.array.isRequired,
