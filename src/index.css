@@ -296,12 +296,14 @@ p {
     transform: rotate(0deg);
   }
   .locations-list{
-    height: calc(100vh - 191px);
+    height: calc(100vh - 166px);
     width: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     background-color: white;
     border-top: 1px solid #ccc;
     text-align: left;
+
   }
 
   /* List Items */
