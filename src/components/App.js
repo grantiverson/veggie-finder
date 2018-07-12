@@ -66,10 +66,6 @@ class App extends Component {
     showList: true
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.markers !== this.state.markers
-  }
-
   componentDidMount() {
     this.searchForLocations();
 
