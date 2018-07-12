@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const Search = (props) => {
 	return (
 		<div id="search-filter-container">
-			<p>Use our Veggie Finder to find restaurants that serve the best vegetarian food in the area!</p>
+			<p>Find restaurants that serve the best vegetarian food!</p>
 			<div id="sidebar-inputs-container" role="Search">
 				<SearchText
 					handleSearchText={props.handleSearchText}
