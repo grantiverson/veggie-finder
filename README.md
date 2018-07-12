@@ -1,10 +1,10 @@
 # Veggie Finder
 
-I created this website as a project for my Front-End Web Development Nanodegree from Udacity. This website allows the user to find find restaurants that serve the best vegetarian food in the the area.
+I started this website as a project for my Front-End Web Development Nanodegree from Udacity, but it has grown well beyond that. This website allows the user to find find restaurants that serve the best vegetarian food in the the area.
 
 ## Run live
 
-Run it live at [veggie-finder.herokuapp.com/](https://veggie-finder.herokuapp.com/)
+Run it live at [veggie-finder.herokuapp.com/](https://veggie-finder.herokuapp.com/). It may be sleeping, so give it about 30 seconds to wake up.
 
 ## Download
 
