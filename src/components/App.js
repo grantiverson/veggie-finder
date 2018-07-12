@@ -23,6 +23,10 @@ class App extends Component {
         name: 'Please search for a location',
         rating: 0,
         price: '$',
+        coordinates: {
+          latitude: 0,
+          longitude: 0
+        }
       }
     ],
     // Google Maps styles
@@ -107,7 +111,7 @@ class App extends Component {
         map: map,
         name: location.name,
         animation: window.google.maps.Animation.DROP,
-        // address: location.location.display_address.join(', '),
+        address: location.location.display_address.join(', '),
         rating: location.rating,
         price: location.price,
         id: i,
