@@ -67,7 +67,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.searchForLocations();
+    this.searchForLocations({preventDefault: () => (0)});
 
     // Creates the Google Maps map script tag, calls the API request, then
     // appends the tag to the end of the document
@@ -156,9 +156,9 @@ class App extends Component {
         return {updatedMarkers}
       },
         () => {
-          infoWindow.marker = marker,
+          infoWindow.marker = marker
           // Makes the selected marker bounce
-          marker.setAnimation(window.google.maps.Animation.BOUNCE),
+          marker.setAnimation(window.google.maps.Animation.BOUNCE)
 
           // Sets the content of the infoWindow and opens the window
           infoWindow.setContent(
@@ -172,8 +172,8 @@ class App extends Component {
                 <a className="info-window-link"href=${marker.url}><img class="info-window-yelp-logo" src=${yelpLogo} alt="yelp!"></a>
               </div>
            </div>`
-          ),
-          infoWindow.open(map, marker),
+          )
+          infoWindow.open(map, marker)
           // Stops animations if the infoWindow is closed
           infoWindow.addListener('closeclick', function() {
             marker.setAnimation(null);
@@ -208,7 +208,7 @@ class App extends Component {
 
   // Calls Yelp API and handles return
   searchForLocations = (e) => {
-    e ? e.preventDefault() : null;
+    e.preventDefault();
 
     // Authorization info for Yelp
     // https://forum.freecodecamp.org/t/authorization-http-header-for-yelp-fusion-api-access-token/140974
