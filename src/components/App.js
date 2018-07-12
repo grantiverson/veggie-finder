@@ -114,7 +114,7 @@ class App extends Component {
         map: map,
         name: location.name,
         animation: window.google.maps.Animation.DROP,
-        address: location.location.display_address.join(', '),
+        address: location.location.display_address.join(', ').slice(0, -5),
         rating: location.rating,
         price: location.price,
         id: i,
@@ -166,11 +166,11 @@ class App extends Component {
               <div class="info-window-text-container">
                 <a className="info-window-link"href=${marker.url} target="_blank"><h2 className="info-window-name">${marker.name}</h2></a>
                 <p className="info-window-address">${marker.address}</p>
-                <p className="info-window-price">${marker.price}</p>
               </div>
-              <img className="info-window-rating-img"src=${yelpStars[marker.rating * 2 - 6]} alt=${marker.rating}>
-              <a className="info-window-link"href=${marker.url}><img id="yelp-logo" src=${yelpLogo} alt="yelp!"></a>
-              <p>Based on ${marker.review_count} reviews</p>
+              <div className="info-window-rating-container">
+                <img class="info-window-rating-img"src=${yelpStars[marker.rating * 2 - 6]} alt=${marker.rating}>
+                <a className="info-window-link"href=${marker.url}><img class="info-window-yelp-logo" src=${yelpLogo} alt="yelp!"></a>
+              </div>
            </div>`
           ),
           infoWindow.open(map, marker),

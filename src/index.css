@@ -1,8 +1,22 @@
+/* Global styles */
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
+*:focus {
+  outline-color: #007fff;
+}
+h2 {
+  font: 900 14px Helvetica, Arial, sans-serif;
+  color: #007fff;
+  margin: 0;
+}
+p {
+  font: 400 11px Helvetica, Arial, sans-serif;
+}
+
+/* Header */
 #header {
   width: 100vw;
   height: 30px;
@@ -13,17 +27,33 @@ body {
   position: absolute;
   z-index: 2;
 }
+
+/* Map */
+#map {
+  position: relative;
+  top: 150px;
+}
+#map.show {
+  height: calc(65vh - 150px);
+}
+#map.hide {
+  height: calc(100vh - 150px - 34px);
+}
+
+/* Sidebar */
 #sidebar {
   width: 100%;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid #ccc;
   background-color: white;
   position: absolute;
   z-index: 1;
   box-shadow: 1px 1px 5px #ccc;
 }
+
+/* Search */
 #search-filter-container {
-  padding: 30px 10px;
-  height: 110px;
+  padding: 30px 10px 10px;
+  min-height: 110px;
 }
 #sidebar-inputs-container {
   width: 100%;
@@ -43,7 +73,7 @@ body {
 }
 #search-text-button {
   width: 80px;
-  font-size: 1.05em;
+  font-size: 1.05rem;
   margin-left: 10px;
   border: 1px solid #007fff;
 }
@@ -60,14 +90,17 @@ body {
 #rating-filter {
   margin-left: 10px;
 }
+
+/* Locations */
 .locations-list-container {
   width: 100%;
   position: absolute;
-  top: calc(100vh - 350px);
+  top: 65vh;
   background-color: white;
-  border-top: 1px solid #bbb;
+  border-top: 1px solid #ccc;
   text-align: center;
   box-shadow: -1px -1px 5px #ccc;
+
 }
 .locations-list-container.hide {
   top: calc(100vh - 34px);
@@ -88,95 +121,159 @@ body {
   transform: rotate(180deg);
 }
 .locations-list{
-  height: 316px;
+  height: calc(35vh - 34px);
   width: 100%;
   overflow: scroll;
   background-color: white;
-  border-top: 1px solid #bbb;
+  border-top: 1px solid #ccc;
   text-align: left;
 }
 .locations-list-container.hide .locations-list {
   height: 0;
 }
+
+/* List Items */
 .list-item {
-  overflow: auto;
-  border: 1px solid #bbb;
-  margin: 0 0 10px 10px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  margin: 5px 0 10px;
   box-shadow: 1px 1px 5px #ccc;
-}
-h2 {
-  color: #007fff;
+  border: 1px solid #ccc;
 }
 .list-item-img-container {
   float: left;
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
   overflow: hidden;
 }
 .list-item-img {
-  height: 150px;
-  width: 150px;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 .list-item-container {
-  float: left;
-  margin-left: 10px;
+  width: calc(100% - 110px);
+  padding: 5px;
 }
-.list-item-container h2 {
-  font-size: 1em;
-  margin: 5px 0 0;
+.list-item-rating-container {
+  position: absolute;
+  top: 60px;
 }
-.list-item-container p {
-  font-size: .8em;
-  margin: 0 0 5px;
-}
-.list-item-text-container{
-  margin-bottom: 30px;
-}
-#map {
-  height: calc(100vh - 150px);
-  position: relative;
-  top: 150px;
-}
-.info-window-img {
-  float: left;
-  height: 150px;
-}
+
+/* List Items && Info Window */
+.list-item-container,
 .info-window-container {
   float: left;
+  position: relative;
+}
+.list-item-text-container p,
+.info-window-text-container p {
+  margin: 0;
+}
+.list-item-rating-img,
+.info-window-rating-img {
+  width: 100px;
+}
+.list-item-yelp-logo,
+.info-window-yelp-logo {
   margin-left: 10px;
+  width: 40px;
 }
-.info-window-container h2 {
-  margin: 5px 0 0;
+.list-item-review-count,
+.info-window-review-count {
+  font-size: 9px;
+  margin: 0;
 }
-.info-window-container p {
-  margin: 0 0 5px;
-}
-.info-window-text-container{
-  margin-bottom: 30px;
-}
+
+/* Info Window */
 .info-window-text-container a {
   text-decoration-color: #007fff;
 }
-#yelp-logo {
-  margin-left: 10px;
-  width: 64px;
+
+@media screen and (min-width: 400px) {
+  /* Global styles */
+  h2 {
+    font-size: 16px;
+  }
+  p {
+    font-size: 14px;
+  }
+  
+  /* List Items */
+  .list-item {
+    overflow-x: hidden;
+    margin: 10px 10px;
+  }
+  .list-item-img-container {
+    height: 125px;
+    width: 125px;
+  }
+  .list-item-container {
+    width: calc(100% - 145px);
+    padding: 10px;
+  }
+  .list-item-rating-container {
+    top: 77px;
+  }
+  .list-item-rating-img {
+      width: 125px;
+  }
+  .list-item-yelp-logo {
+    width: 50px;
+  }
+
+  /* List Items && Info Window */
+  .list-item-text-container p,
+  .info-window-text-container p {
+    margin: 0 0 5px;
+  }
+  .list-item-review-count,
+  .info-window-review-count {
+    font-size: 11px;
+  }
 }
 
 @media screen and (min-width: 800px) {
+  /* Global styles */
+  h2 {
+    font-size: 18px;
+  }
+  p {
+    font-size: 14px;
+  }
+
+  /* Map */
+  #map {
+    position: static;
+    top: 30px;
+  }
+  #map.show {
+    float: right;
+    height: calc(100vh - 30px);
+    width: calc(100% - 475px);
+  }
+  #map.hide {
+    height: calc(100vh - 30px);
+  }
+
+  /* Sidebar */
   #sidebar {
     width: 475px;
-    border-right: 1px solid #bbb;
+    border-right: 1px solid #ccc;
     border-bottom: none;
   }
+
+  /* Search */
   #search-filter-container {
     padding: 30px 10px 0;
     height: 127px;
   }
+
+  /* Locations */
   .locations-list-container{
     position: static;
     border-top: none;
-    border-bottom: 1px solid #bbb;
+    border-bottom: 1px solid #ccc;
     box-shadow: none;
   }
   .locations-list-container.show #locations-list-button {
@@ -190,23 +287,41 @@ h2 {
     width: 100%;
     overflow: scroll;
     background-color: white;
-    border-top: 1px solid #bbb;
+    border-top: 1px solid #ccc;
     text-align: left;
   }
-  .list-item-text-container{
+
+  /* List Items */
+  .list-item-img-container {
+    float: left;
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+  }
+  .list-item-container {
+    width: calc(100% - 170px);
+  }
+  .list-item-text-container {
     max-width: 285px;
   }
-  #map.show {
-    float: right;
-    position: static;
-    top: 30px;
-    height: calc(100vh - 30px);
-    width: calc(100% - 475px);
+  .list-item-rating-container {
+    top: 95px;
   }
-  #map.hide {
-    position: static;
-    top: 30px;
-    height: calc(100vh - 30px);
-    width: 100%;
+  .list-item-rating-img {
+    width: 125px;
+  }
+
+  /* List Items && Info Window */
+  .list-item-rating-img,
+  .info-window-rating-img {
+    width: 150px;
+  }
+  .list-item-yelp-logo,
+  .info-window-yelp-logo {
+    width: 64px;
+  }
+  .list-item-review-count,
+  .info-window-review-count {
+    font-size: 12px;
   }
 }

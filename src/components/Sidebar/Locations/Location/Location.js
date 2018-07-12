@@ -18,9 +18,11 @@ const Location = (props) => {
           <p className="list-item-address">{marker.address}</p>
           <p className="list-item-price">{marker.price}</p>
         </div>
-        <img className="list-item-rating-img" src={yelpStarRatingImg} alt={marker.rating}></img>
-        <a className="list-item-link" href={marker.url} tabIndex="-1" target="_blank"><img id="yelp-logo" src={yelpLogo} alt="yelp!"></img></a>
-        <p>Based on {marker.review_count} reviews</p>
+        <div className="list-item-rating-container">
+          <img className="list-item-rating-img" src={yelpStarRatingImg} alt={marker.rating}></img>
+          <a className="list-item-link" href={marker.url} tabIndex="-1" target="_blank"><img className="list-item-yelp-logo" src={yelpLogo} alt="yelp!"></img></a>
+          <p className="list-item-review-count">Based on {marker.review_count} reviews</p>
+        </div>
       </div>
     </div>
   )
