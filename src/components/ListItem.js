@@ -22,7 +22,7 @@ const ListItem = (props) => {
       </div>
       <div className="list-item-container">
         <div className="list-item-text-container">
-          <a className="list-item-link" href={marker.url} target="_blank"><h2 className="list-item-name">{marker.name}</h2></a>
+          <h2 className="list-item-name">{marker.name}</h2>
           <p className="list-item-address">{marker.address}</p>
           <p className="list-item-price">{marker.price}</p>
         </div>

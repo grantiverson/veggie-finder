@@ -103,6 +103,9 @@ body {
   margin: 0 0 10px 10px;
   box-shadow: 1px 1px 5px #ccc;
 }
+h2 {
+  color: #007fff;
+}
 .list-item-img-container {
   float: left;
   height: 150px;
@@ -150,6 +153,9 @@ body {
 }
 .info-window-text-container{
   margin-bottom: 30px;
+}
+.info-window-text-container a {
+  text-decoration-color: #007fff;
 }
 #yelp-logo {
   margin-left: 10px;
