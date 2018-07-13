@@ -68,14 +68,14 @@ p {
   margin-bottom: 10px;
 }
 #search-text {
-  width: calc(100% - 94px);
+  width: calc(100% - 95px);
   max-width: 300px;
   height: 21px;
   font-size: 14px;
   border: 1px solid #007fff;
 }
 #search-text-button {
-  width: 80px;
+  /*width: 80px;*/
   font-size: 1.05rem;
   margin-left: 10px;
   border: 1px solid #007fff;
@@ -209,6 +209,12 @@ p {
   #price-filter,
   #rating-filter {
     width: 120px;
+  }
+  #search-text {
+    width: calc(100% - 94px);
+  }
+  #search-text-button {
+    width: 80px;
   }
   
   /* List Items */
