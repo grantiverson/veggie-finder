@@ -68,7 +68,7 @@ p {
   margin-bottom: 10px;
 }
 #search-text {
-  width: calc(100% - 95px);
+  /*width: calc(100% - 95px);*/
   max-width: 300px;
   height: 21px;
   font-size: 14px;
