@@ -308,9 +308,7 @@ class App extends Component {
   // hides the list of location deatils
   toggleShowList = () => {
     this.setState(previousState => {
-      let toggleShowListState = previousState;
-      toggleShowListState.showList = !previousState.showList;
-      return { toggleShowListState }
+      return { showList: !previousState.showList }
     })
   }
 
