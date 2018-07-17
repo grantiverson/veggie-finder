@@ -1,6 +1,6 @@
 {
   "name": "veggie-finder",
-  "description": "React-powered Progressive Web App that allows users to find restaurants that serve the best vegetarian food",
+  "description": "React-powered app that allows users to find restaurants that serve the best vegetarian food",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,8 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/grantiverson/veggie-finder"
+    "url": "git+https://github.com/grantiverson/veggie-finder.git"
   },
   "author": "Grant Iverson",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/grantiverson/veggie-finder/issues"
+  },
+  "homepage": "https://github.com/grantiverson/veggie-finder#readme",
+  "main": "index.js",
+  "devDependencies": {}
 }
