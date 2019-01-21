@@ -67,7 +67,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.searchForLocations({preventDefault: () => (0)});
+    this.searchForLocations({ preventDefault: () => (0) });
 
     // Creates the Google Maps map script tag, calls the API request, then
     // appends the tag to the end of the document
@@ -110,7 +110,7 @@ class App extends Component {
     for (let i = 0; i < locations.length; i++) {
       const location = locations[i];
       const marker = new window.google.maps.Marker({
-        position: {lat: location.coordinates.latitude, lng: location.coordinates.longitude},
+        position: { lat: location.coordinates.latitude, lng: location.coordinates.longitude },
         map: map,
         name: location.name,
         animation: window.google.maps.Animation.DROP,
@@ -125,7 +125,7 @@ class App extends Component {
       })
 
       // Adds an event listener to each marker
-      marker.addListener('click', function() {
+      marker.addListener('click', function () {
         populateInfoWindow(this);
       })
 
@@ -153,7 +153,7 @@ class App extends Component {
         const updatedMarkers = previousState.markers.map(marker => {
           return marker.setAnimation(null);
         })
-        return {updatedMarkers}
+        return { updatedMarkers }
       },
         () => {
           infoWindow.marker = marker
@@ -162,7 +162,7 @@ class App extends Component {
 
           // Sets the content of the infoWindow and opens the window
           infoWindow.setContent(
-           `<div class="info-window-container">
+            `<div class="info-window-container">
               <div class="info-window-text-container">
                 <a className="info-window-link"href=${marker.url} target="_blank"><h2 className="info-window-name">${marker.name}</h2></a>
                 <p className="info-window-address">${marker.address}</p>
@@ -175,7 +175,7 @@ class App extends Component {
           )
           infoWindow.open(map, marker)
           // Stops animations if the infoWindow is closed
-          infoWindow.addListener('closeclick', function() {
+          infoWindow.addListener('closeclick', function () {
             marker.setAnimation(null);
             infoWindow.setMarker = null;
           })
@@ -183,7 +183,7 @@ class App extends Component {
       )
 
 
-      
+
 
     }
   }
@@ -193,9 +193,9 @@ class App extends Component {
     this.setState(previousState => {
       const updatedMarkers = previousState.markers.map(marker => {
         return (marker.setMap(null),
-        marker.setAnimation(null));
+          marker.setAnimation(null));
       })
-      return {updatedMarkers}
+      return { updatedMarkers }
     })
   }
 
@@ -222,22 +222,22 @@ class App extends Component {
     const urlToFetch = `${cors}https://api.yelp.com/v3/businesses/search?term=vegetarian restaurants&location=${this.state.searchValue}`
 
     fetch(urlToFetch, {
-        headers: myHeaders
-      }).then(result => {
-        return result.json();
-      }).then(places => {
-        if (places.businesses[0]) {
-          this.setState({
-            locations: places.businesses
-          },
-            map ? this.initMap : null
-          )
-        }
+      headers: myHeaders
+    }).then(result => {
+      return result.json();
+    }).then(places => {
+      if (places.businesses[0]) {
+        this.setState({
+          locations: places.businesses
+        },
+          map ? this.initMap : null
+        )
+      }
 
-      }).catch(error => {
-        alert('Sorry, but we seem to have hit a snag :/');
-        console.log(error);
-      });
+    }).catch(error => {
+      alert('Sorry, but we seem to have hit a snag :/');
+      console.log(error);
+    });
   }
 
   // Controls the state of the price-filter select tag
@@ -245,16 +245,18 @@ class App extends Component {
     this.setState({
       priceFilterValue: event.target.value
     },
-    this.filterRestaurants
-  )}
+      this.filterRestaurants
+    )
+  }
 
   // Controls the state of the rating-filter select tag
   handleRatingFilter = (event) => {
     this.setState({
       ratingFilterValue: event.target.value
     },
-    this.filterRestaurants
-  )}
+      this.filterRestaurants
+    )
+  }
 
   // Decides which locations to show and which to hide
   filterRestaurants = () => {
@@ -281,7 +283,7 @@ class App extends Component {
         markers[i].setAnimation(window.google.maps.Animation.BOUNCE);
         markers[i].setMap(map);
 
-        setTimeout(function() {
+        setTimeout(function () {
           markers[i].setAnimation(null);
         }, 1400);
 
