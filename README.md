@@ -4,7 +4,7 @@ I started this website as a project for my Front-End Web Development Nanodegree 
 
 ## Run live
 
-Run it live at [veggie-finder.herokuapp.com/](https://veggie-finder.herokuapp.com/). It may be sleeping, so give it about 30 seconds to wake up.
+~Run it live at [veggie-finder.herokuapp.com/](https://veggie-finder.herokuapp.com/). It may be sleeping, so give it about 30 seconds to wake up.~
 
 ## Download
 
